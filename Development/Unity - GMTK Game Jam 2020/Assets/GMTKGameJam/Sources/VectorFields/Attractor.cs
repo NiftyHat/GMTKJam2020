@@ -5,6 +5,7 @@ public class Attractor {
 	public int y;
 	public float force;
 	public bool hardCutOff = true;
+	public bool dirty {get; set;}
 	public AttractorBehaviour behaviour = AttractorBehaviour.THROUGH_WALLS;
 
 	

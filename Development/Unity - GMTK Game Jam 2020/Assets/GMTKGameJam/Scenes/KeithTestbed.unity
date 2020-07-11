@@ -414,13 +414,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789770358}
-  m_LocalRotation: {x: -0, y: -0, z: -0.23728068, w: 0.97144115}
-  m_LocalPosition: {x: -15.3, y: 0, z: 0}
-  m_LocalScale: {x: 6.2601094, y: 23.419033, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -27.452002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &850553102
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1262950084}
   - component: {fileID: 1262950083}
+  - component: {fileID: 1262950085}
   m_Layer: 0
   m_Name: TestObject
   m_TagString: Untagged
@@ -537,7 +538,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262950082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e99e4f1033c947c4596774dbc93df505, type: 3}
   m_Name: 
@@ -550,28 +551,33 @@ MonoBehaviour:
   - id: 0
     x: 0
     y: 0
-    force: 20
+    force: 0
     hardCutOff: 1
+    behaviour: 2
   - id: 1
-    x: -50
+    x: 0
     y: 0
-    force: -30
+    force: 0
     hardCutOff: 1
+    behaviour: 2
   - id: 2
-    x: 50
+    x: 0
     y: 0
-    force: -30
+    force: 0
     hardCutOff: 1
+    behaviour: 2
   - id: 3
     x: 0
-    y: 50
-    force: -30
+    y: 0
+    force: 0
     hardCutOff: 1
+    behaviour: 2
   - id: 4
     x: 0
-    y: -50
-    force: -30
+    y: 0
+    force: 0
     hardCutOff: 1
+    behaviour: 2
 --- !u!4 &1262950084
 Transform:
   m_ObjectHideFlags: 0
@@ -586,3 +592,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1262950085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262950082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34cd4cd33e2a9e49b9af557d14dd9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  demoObject: {fileID: 626637363}
+  solid: {fileID: 789770358}
+  NumberOfParticles: 100
+  Attractors:
+  - id: 0
+    x: 0
+    y: 0
+    force: 20
+    hardCutOff: 1
+    behaviour: 1
+  - id: 1
+    x: 100
+    y: 100
+    force: 20
+    hardCutOff: 1
+    behaviour: 1

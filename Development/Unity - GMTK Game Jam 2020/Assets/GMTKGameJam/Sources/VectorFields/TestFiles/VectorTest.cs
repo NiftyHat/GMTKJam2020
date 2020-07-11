@@ -34,7 +34,6 @@ public class VectorTest : MonoBehaviour
 
 		// Our VectorParticleTest will run the "which way am I going?" on Update
 	}
-
 	void OnDrawGizmos () {
 
 		// Attractors are classes, and thus references. Feel free to store them somewhere
