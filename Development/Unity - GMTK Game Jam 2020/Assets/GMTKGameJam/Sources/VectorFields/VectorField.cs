@@ -34,12 +34,27 @@ public class VectorField
 	}
 
 	Vector2 getForce(float x, float y, Attractor attractor) {
-		float magnitude = GetMagnitude(attractor, x, y);
-		Vector2 direction = new Vector2(attractor.x - x, attractor.y - y);
-		direction.Normalize();
-		direction.x *= magnitude;
-		direction.y *= magnitude;
-		return direction;
+		switch(attractor.behaviour) {
+			
+			// Attractor functions through walls (sound) and path directly
+			case AttractorBehaviour.THROUGH_WALLS:
+			float magnitude = GetMagnitude(attractor, x, y);
+			Vector2 direction = new Vector2(attractor.x - x, attractor.y - y);
+			direction.Normalize();
+			direction.x *= magnitude;
+			direction.y *= magnitude;
+			return direction;
+
+			// Attractor functions only if direct line can be drawn (sight) with no obstacles
+			case AttractorBehaviour.LINE_OF_SIGHT:
+			return new Vector2();
+
+			// Attractor functions as pathfindable around walls (smell) pathing around obstacles
+			case AttractorBehaviour.AROUND_WALLS:
+			return new Vector2();
+		}
+
+		return new Vector2();
 	}
 
 	float GetMagnitude(Attractor attractor, float x, float y) {
