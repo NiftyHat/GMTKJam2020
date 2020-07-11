@@ -34,6 +34,10 @@ public class VectorFieldController : MonoBehaviour
 
     }
 
+	 void Update(){
+		 _vectorField.UpdateForces();
+	 }
+
     // Update is called once per frame
     private void OnDrawGizmos()
     {

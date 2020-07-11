@@ -83,8 +83,10 @@ public class VectorField
 
 	#region protected / private methods
 	private void UpdateAttractorMap () {
-		foreach(KeyValuePair<Attractor, Vector2[,]> kvp in _attractorMap){
-			RecalculateAttractorGridForce(kvp.Key);
+		List<Attractor> attractors = new List<Attractor>(_attractorMap.Keys);
+		for(int i = 0; i < attractors.Count; i++) {
+			Attractor a = attractors[i];
+			RecalculateAttractorGridForce(a);
 		}
 	}
 
