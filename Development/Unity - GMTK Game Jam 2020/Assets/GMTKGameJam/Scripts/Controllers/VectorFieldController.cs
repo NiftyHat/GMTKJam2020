@@ -26,12 +26,6 @@ public class VectorFieldController : MonoBehaviour
 			VectorField.Block(0, y);
 			VectorField.Block(VectorField.WidthByGrid - 1, y);
 		}
-		VectorField.Block(7, 10);
-		VectorField.Block(7, 9);
-		VectorField.Block(7, 8);
-		VectorField.Block(7, 7);
-		VectorField.Block(7, 6);
-		VectorField.Block(7, 5);
 
 		foreach (Attractor attractor in _attractors)
 		{

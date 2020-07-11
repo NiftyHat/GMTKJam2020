@@ -10,7 +10,14 @@ public class LevelBoundsPlacer : MonoBehaviour
 	public GameObject BasicCollider;
 	void Start()
 	{
+
 		VectorField = FindObjectOfType<VectorFieldController>().VectorField;
+		VectorField.Block(7, 10);
+		VectorField.Block(7, 9);
+		VectorField.Block(7, 8);
+		VectorField.Block(7, 7);
+		VectorField.Block(7, 6);
+		VectorField.Block(7, 5);
 		for(int x = 0; x < VectorField.WidthByGrid; x++) {
 			for(int y = 0; y < VectorField.HeightByGrid; y++) {
 				if(VectorField.IsBlockedAt(x, y)) Block(x, y);
@@ -26,6 +33,7 @@ public class LevelBoundsPlacer : MonoBehaviour
 		GameObject b = Instantiate(BasicCollider);
 		b.transform.localScale = new Vector3(VectorField.GridSize, VectorField.GridSize, VectorField.GridSize);
 		b.transform.position = new Vector3(x * VectorField.GridSize, VectorField.GridSize * 0.5f, y * VectorField.GridSize);
+		b.transform.parent = transform;
 	}
 
 	// Update is called once per frame
