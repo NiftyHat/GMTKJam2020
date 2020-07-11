@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static VectorField;
 
 public class VectorTestWithGrid : MonoBehaviour
 {
@@ -8,23 +9,36 @@ public class VectorTestWithGrid : MonoBehaviour
 	public GameObject demoObject;
 	public GameObject solid;
 	public int NumberOfParticles = 100;
+
+	public int testX;
+	public int testY;
 	public Attractor[] Attractors;
 	// Start is called before the first frame update
 	void Awake()
 	{
 		// Create our Vector Field
-		vectorField = new VectorField(50, 50, 2);
+		vectorField = new VectorField(100, 100, 10);
+
+		int[,] testField = new int[,]{
+			{1,1,1,1,1,1,1,1,1,1},
+			{1,0,0,0,0,0,0,0,0,1},
+			{1,0,1,0,0,0,0,0,0,1},
+			{1,0,0,1,1,1,1,1,0,1},
+			{1,0,0,0,1,0,0,1,0,1},
+			{1,0,0,0,1,0,0,0,0,1},
+			{1,0,0,0,1,0,0,1,0,1},
+			{1,0,0,0,1,0,0,0,0,1},
+			{1,0,0,0,0,0,0,1,0,1},
+			{1,1,1,1,1,1,1,1,1,1}
+		};
 
 		// Add some random bits to it
 		int GridSize = vectorField.GridSize;
 
-		for(int i = 0; i < 3 * Mathf.Sqrt(vectorField.WidthByGrid * vectorField.HeightByGrid); i++) {
-			vectorField.Block(Random.Range(0, vectorField.WidthByGrid), Random.Range(0, vectorField.HeightByGrid));
-		}
-
 		float GridSizeO2 = (float)(vectorField.GridSize / 2f);
 		for(int x = 0; x < vectorField.WidthByGrid; x++) {
 			for(int y = 0; y < vectorField.HeightByGrid; y++) {
+				if(testField[y, x] == 1) vectorField.Block(x, y);
 				if(vectorField.IsBlockedAt(x, y)) {
 					GameObject b = Instantiate(solid, 
 					new Vector3(
@@ -63,9 +77,38 @@ public class VectorTestWithGrid : MonoBehaviour
 	void OnDrawGizmos() {
 		// Attractors are classes, and thus references. Feel free to store them somewhere
 		// Remove them from the VectorField with RemoveAttractor(id)
+		
 		foreach(Attractor a in Attractors) {
 			Gizmos.color = a.force < 0 ? Color.red : Color.green;
 			Gizmos.DrawWireSphere(new Vector3(a.x, a.y, 0), a.force);
+			if(a.behaviour == AttractorBehaviour.LINE_OF_SIGHT || a.behaviour == AttractorBehaviour.BOTH_LOS_AND_AROUND_WALLS) {
+				
+				if(vectorField != null) {
+					Gizmos.color = Color.green;
+					IEnumerable<Point> line = vectorField.GetPointsOnLine(testX, testY, a.x, a.y);
+					IEnumerator<Point> enumer = line.GetEnumerator();
+					while(enumer.MoveNext()) {
+						Point p = enumer.Current;
+						Gizmos.DrawWireCube(new Vector3(
+							p.x * (vectorField.WidthByGrid + 0.5f), 
+							p.y * (vectorField.HeightByGrid + 0.5f),
+							0),
+							new Vector3(vectorField.WidthByGrid, vectorField.HeightByGrid, 1)
+						);
+					}
+				}
+			}
 		}
+		
+		if(vectorField != null) {
+			Gizmos.color = Color.blue;
+			Gizmos.DrawCube(new Vector3(
+				testX, 
+				testY,
+				0),
+				new Vector3(5, 5, 1)
+			);
+		}
+		
 	}
 }

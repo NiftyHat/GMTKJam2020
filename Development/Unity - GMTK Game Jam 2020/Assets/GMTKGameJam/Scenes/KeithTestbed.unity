@@ -173,7 +173,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 60
   m_Depth: -1
   m_CullingMask:
@@ -608,16 +608,12 @@ MonoBehaviour:
   demoObject: {fileID: 626637363}
   solid: {fileID: 789770358}
   NumberOfParticles: 100
+  testX: 0
+  testY: 0
   Attractors:
   - id: 0
     x: 5
     y: 5
     force: 20
     hardCutOff: 1
-    behaviour: 1
-  - id: 1
-    x: 95
-    y: 95
-    force: 20
-    hardCutOff: 1
-    behaviour: 1
+    behaviour: 0

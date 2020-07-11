@@ -23,7 +23,7 @@ public class VectorFieldDynamicUpdateBehavior : MonoBehaviour
 
         _attractor = new Attractor {x = (int) transform.position.x, y = (int) transform.position.z, force = _radius};
 		  _attractor.hardCutOff = true;
-		  _attractor.behaviour = AttractorBehaviour.THROUGH_WALLS;
+		  _attractor.behaviour = AttractorBehaviour.LINE_OF_SIGHT;
 		  _vectorField.AddAttractor(_attractor);
     }
 

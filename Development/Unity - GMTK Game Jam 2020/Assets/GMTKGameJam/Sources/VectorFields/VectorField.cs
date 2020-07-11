@@ -95,7 +95,7 @@ public class VectorField
 		
 		bool hardCutOff = a.hardCutOff;
 		int force = (int)(a.force / GridSize);
-		int maxWeight = hardCutOff ? Math.Abs(force * 4) : W2 * H2;
+		int maxWeight = hardCutOff ? Math.Abs(force * 2) : W2 * H2;
 		
 		Vector2[,] values = new Vector2[W2, H2];
 		int[,] heatmap = new int[W2, H2];
@@ -245,20 +245,20 @@ public class VectorField
 		return (ex * ex) + (ey * ey);
 	}
 
-	bool CanDrawLOSFromPointToAttractor(float x, float y, Attractor attractor) {
+	protected bool CanDrawLOSFromPointToAttractor(float x, float y, Attractor attractor) {
 		IEnumerable<Point> line = GetPointsOnLine(x, y, attractor.x, attractor.y);
 		IEnumerator<Point> enumer = line.GetEnumerator();
-		do {
+		while (enumer.MoveNext()) {
 			Point p = enumer.Current;
 			if(p.x < 0 || p.x >= WidthByGrid || p.y < 0 || p.y >= HeightByGrid) break;
 			if(map[p.x, p.y]) return false;
-		} while (enumer.MoveNext());
+		}
 		return true;
 	}
 
 	#endregion
 
-	internal struct Point {
+	public struct Point {
 		public int x;
 		public int y;
 		public Point(int x, int y) { this.x = x; this.y = y;}
@@ -270,7 +270,7 @@ public class VectorField
 					 y == point.y;
 		}
 	}
-	IEnumerable<Point> GetPointsOnLine(float fx0, float fy0, float fx1, float fy1)
+	public IEnumerable<Point> GetPointsOnLine(float fx0, float fy0, float fx1, float fy1)
 	{
 
 		int x0 = (int)(fx0 / GridSize);
