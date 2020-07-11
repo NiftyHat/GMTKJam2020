@@ -14,11 +14,30 @@ public class VectorFieldController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        _vectorField = new VectorField();
-        foreach (Attractor attractor in _attractors)
-        {
-            _vectorField.AddAttractor(attractor);
-        }
+		int width = (int)Bounds.width;
+		int height = (int)Bounds.height;
+		_vectorField = new VectorField(50, 50, 2);
+
+		for(int x = 0; x < VectorField.WidthByGrid; x++) {
+			VectorField.Block(x, 0);
+			VectorField.Block(x, VectorField.HeightByGrid - 1);
+		}
+		for(int y = 0; y < VectorField.HeightByGrid; y++) {
+			VectorField.Block(0, y);
+			VectorField.Block(VectorField.WidthByGrid - 1, y);
+		}
+		VectorField.Block(7, 10);
+		VectorField.Block(7, 9);
+		VectorField.Block(7, 8);
+		VectorField.Block(7, 7);
+		VectorField.Block(7, 6);
+		VectorField.Block(7, 5);
+
+		foreach (Attractor attractor in _attractors)
+		{
+			_vectorField.AddAttractor(attractor);
+		}
+
     }
 
     // Update is called once per frame

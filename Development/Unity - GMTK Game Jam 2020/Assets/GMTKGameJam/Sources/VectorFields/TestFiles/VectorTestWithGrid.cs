@@ -13,7 +13,7 @@ public class VectorTestWithGrid : MonoBehaviour
 	void Awake()
 	{
 		// Create our Vector Field
-		vectorField = new VectorField(100, 100, 3);
+		vectorField = new VectorField(50, 50, 2);
 
 		// Add some random bits to it
 		int GridSize = vectorField.GridSize;
@@ -44,7 +44,7 @@ public class VectorTestWithGrid : MonoBehaviour
 
 		// Make a load of cats
 		for(int i = 0; i < NumberOfParticles; i++) {
-			Instantiate(demoObject, new Vector3(Random.Range(0, 100), Random.Range(0, 100), 0), Quaternion.identity);
+			Instantiate(demoObject, new Vector3(Random.Range(0, vectorField.Width), Random.Range(0, vectorField.Height), 0), Quaternion.identity);
 		}
 		Destroy(demoObject);
 		Destroy(solid);

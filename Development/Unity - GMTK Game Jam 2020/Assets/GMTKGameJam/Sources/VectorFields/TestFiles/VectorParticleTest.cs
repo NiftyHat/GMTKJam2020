@@ -22,8 +22,8 @@ public class VectorParticleTest : MonoBehaviour
 		
 		// Just keep it within bounds for now
 		Vector3 m = transform.position;
-		m.x = Mathf.Clamp(m.x, 0, 100);
-		m.y = Mathf.Clamp(m.y, 0, 100);
+		m.x = Mathf.Clamp(m.x, 0, ReferenceToTheVectorField.Width);
+		m.y = Mathf.Clamp(m.y, 0, ReferenceToTheVectorField.Height);
 		transform.position = m;
 	}
 }
