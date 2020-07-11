@@ -13,7 +13,7 @@ public class BorkMeterView : MonoBehaviour
 
     public void Start()
     {
-        _character.OnBorkChange += Set;
+        _character.BorkingBehavior.OnBorkChange += Set;
     }
 
     private void Set(float value, float max, float cooldown)

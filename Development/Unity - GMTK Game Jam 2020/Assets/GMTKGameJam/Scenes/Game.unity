@@ -2516,7 +2516,8 @@ MonoBehaviour:
   _borkAccumulator:
     _max: 100
     _cooldownTime: 3
-    _baseIncreaseSpeed: 50
+    _baseIncreaseSpeed: 20
+  _fireChargeTime: 1.4
   _raycastMaxDistance: 100
   _fireControllerDistance: 1
 --- !u!1001 &1041013401
@@ -3985,8 +3986,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firedProjectilePrefab: {fileID: 4777666250115577317, guid: 4c6039061a5130543a2451b628d88ed0,
     type: 3}
-  forceMin: 35
-  forceMax: 70
+  _powerCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.19999999
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _powerMultiplier: 45
 --- !u!1 &2001608397 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d49c0f9f65b802f4dbf9ab0424dc6423,
