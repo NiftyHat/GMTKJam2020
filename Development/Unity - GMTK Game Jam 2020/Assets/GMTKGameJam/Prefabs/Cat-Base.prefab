@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3615926582676974138}
   - component: {fileID: 3715848062479171140}
   m_Layer: 0
-  m_Name: Catto
+  m_Name: Cat-Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7a6be2d53863b41bec0980c4c59b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _texture: {fileID: 2800000, guid: 7c780cfbb4a6fc94ca0cf073c0387d28, type: 3}
+  _renderer: {fileID: 2141181209121698498}
 --- !u!135 &3615926582676974137
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.05
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
         type: 3}
@@ -194,6 +196,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.2
       objectReference: {fileID: 0}
+    - target: {fileID: -7357337227813385622, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
         type: 3}
       propertyPath: m_Name
@@ -209,6 +216,12 @@ PrefabInstance:
 --- !u!4 &5393350887453133278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 5571992275444297269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2141181209121698498 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5828979002318216439, guid: 8de1f7dd1bfd1304ba73b686909a66bf,
     type: 3}
   m_PrefabInstance: {fileID: 5571992275444297269}
   m_PrefabAsset: {fileID: 0}

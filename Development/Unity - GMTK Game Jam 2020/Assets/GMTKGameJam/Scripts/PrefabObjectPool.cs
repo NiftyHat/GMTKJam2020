@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 /// <typeparam name="TComponent">Required component on the root of the prefab</typeparam>
 public class PrefabObjectPool
 {
-    private GameObject _prefab;
+    private GameObject[] _prefabList;
     private int _size;
     private List<GameObject> _pooledItems = new List<GameObject>();
     private string _name;
@@ -21,7 +21,15 @@ public class PrefabObjectPool
     {
         _name = "Pool - " + prefab.name;
         _size = size;
-        _prefab = prefab;
+        _prefabList = new[] {prefab};
+        _root = GetRoot();
+    }
+    
+    public PrefabObjectPool(GameObject[] prefabList, int size = 500)
+    {
+        _name = "Pool - Mixed";
+        _prefabList = prefabList;
+        _size = size;
         _root = GetRoot();
     }
 
@@ -43,10 +51,11 @@ public class PrefabObjectPool
 
     public void Fill(int count)
     {
+        GameObject prefab = GetPrefab();
         _root = new GameObject(_name);
         for (int i = 0; i < count && i < _size; i++)
         {
-            GameObject obj = GameObject.Instantiate(_prefab, _root.transform);
+            GameObject obj = GameObject.Instantiate(prefab, _root.transform);
         }
     }
     
@@ -74,7 +83,8 @@ public class PrefabObjectPool
         // Put a cap on how many we can have
         if (_pooledItems.Count < _size)
         {
-            GameObject obj = GameObject.Instantiate(_prefab, position, rotation);
+            GameObject prefab = GetPrefab();
+            GameObject obj = GameObject.Instantiate(prefab, position, rotation);
             if (obj != null)
             {
                 TComponent component = obj.GetComponent<TComponent>();
@@ -87,6 +97,15 @@ public class PrefabObjectPool
             }
         }
         return null;
+    }
+
+    private GameObject GetPrefab()
+    {
+        if (_prefabList.Length == 1)
+        {
+            return _prefabList[0];
+        }
+        return _prefabList[Random.Range(0, _prefabList.Length)];
     }
 
     public void ResetGameObject(GameObject gameObject, Transform parent, Vector3 position, Quaternion rotation)

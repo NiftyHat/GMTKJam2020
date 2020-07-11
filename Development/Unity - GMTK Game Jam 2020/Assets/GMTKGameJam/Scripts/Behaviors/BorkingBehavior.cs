@@ -8,8 +8,8 @@ public class BorkingBehavior : MonoBehaviour
 {
     [SerializeField] private VectorFieldDynamicUpdateBehavior _vectorFieldUpdate;
     [SerializeField] private AnimationCurve _repelRadiusCurve;
-    [SerializeField] private float _repelRadiusMin;
-    [SerializeField] private float _repelRadiusMax;
+    [SerializeField] private float _repelRangeMultiplier = 15f;
+    [SerializeField] private float _repelRangeBase = 4f;
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _bounceVelocity;
@@ -95,7 +95,7 @@ public class BorkingBehavior : MonoBehaviour
             _animator.SetInteger(NextBork, nextBork);
             if (_rigidbody != null && Math.Abs(_rigidbody.velocity.y) < 0.05f)
             {
-                _rigidbody.AddForce(Vector3.up * (_bounceVelocity * Random.Range(0.3f,0.5f)), ForceMode.Impulse );
+                _rigidbody.AddForce(Vector3.up * (_bounceVelocity * Random.Range(0.1f,0.15f)), ForceMode.Impulse );
             }
             yield return new WaitForSeconds(nextWait);
         }
@@ -109,9 +109,10 @@ public class BorkingBehavior : MonoBehaviour
             _borkingTime += Time.deltaTime;
             if (_borkingTime < _borkingTimeMax)
             {
-                float normalizedTime = _borkingTime / _borkingTimeMax;
-                float borkingCurveEval = _repelRadiusCurve.Evaluate(normalizedTime);
-                _vectorFieldUpdate.SetRepelForce(_repelRadiusMin + ((_repelRadiusMax - _repelRadiusMin) * borkingCurveEval));
+                float normalizedTime = (1.0f / _borkingTimeMax) * _borkingTime;
+                float borkingCurveEval = _repelRadiusCurve.Evaluate( normalizedTime);
+                _vectorFieldUpdate.SetRepelForce(_repelRangeBase + (borkingCurveEval * _repelRangeMultiplier));
+               // _vectorFieldUpdate.SetRepelForce(_repelRadiusMin + ((_repelRadiusMax - _repelRadiusMin) * borkingCurveEval));
             }
             else
             {
