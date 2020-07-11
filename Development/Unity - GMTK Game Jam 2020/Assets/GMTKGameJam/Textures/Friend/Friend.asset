@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: Friend
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Friend
+    m_Hash: 1380100439
+    m_CategoryList:
+    - m_Name: sad
+      m_Hash: -1613762372
+      m_Sprite: {fileID: 21300000, guid: 4d5083d53daaee04bae22fcbb08fa68f, type: 3}
+    - m_Name: see
+      m_Hash: -1935407826
+      m_Sprite: {fileID: 21300000, guid: f9d4e2eeedd55a24a9d367b24bc4fffa, type: 3}
+    - m_Name: stand1
+      m_Hash: -1581629418
+      m_Sprite: {fileID: 21300000, guid: f9ab3b7113b5a0f46911726ff659921b, type: 3}
+    - m_Name: stand2
+      m_Hash: 951259564
+      m_Sprite: {fileID: 21300000, guid: 5786b0243f04a524298e5b0bc3ceafb0, type: 3}
+    - m_Name: clap1
+      m_Hash: 1588882144
+      m_Sprite: {fileID: 21300000, guid: 45f29a29d96890741ac3a6fbf6daa0fb, type: 3}
+    - m_Name: clap2
+      m_Hash: -943899814
+      m_Sprite: {fileID: 21300000, guid: 20fda62437d114c40a89ffa9333610f9, type: 3}
+    - m_Name: clap3
+      m_Hash: -1329984564
+      m_Sprite: {fileID: 21300000, guid: 4825f43a34e6eaa478a3b93c5f36264c, type: 3}
