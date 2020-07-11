@@ -20,10 +20,8 @@ public class VectorFieldDynamicUpdateBehavior : MonoBehaviour
         {
             _vectorField = _vectorFieldController.VectorField;
         }
-        _attractor = new Attractor();
-        _attractor.x = (int)transform.position.x;
-        _attractor.y = (int)transform.position.z;
-        _attractor.force = _radius;
+
+        _attractor = new Attractor {x = (int) transform.position.x, y = (int) transform.position.z, force = _radius};
         _vectorField.AddAttractor(_attractor);
     }
 
@@ -32,8 +30,13 @@ public class VectorFieldDynamicUpdateBehavior : MonoBehaviour
         _vectorField.RemoveAttractor(_attractor);
     }
 
+    public void SetRepelForce(float force)
+    {
+        _radius = -force;
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (_attractor != null)
         {

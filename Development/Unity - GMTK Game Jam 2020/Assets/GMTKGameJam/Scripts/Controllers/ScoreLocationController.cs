@@ -7,7 +7,9 @@ public class ScoreLocationController : MonoBehaviour
     [SerializeField] protected Attractor _attractor;
     [SerializeField] protected TextMeshPro _scoreText;
 
-    [SerializeField] protected int _radius = 5;
+    [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
+    [SerializeField] private float _radius = 5;
+    
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
     private int _requiredScoringItems = 2;
@@ -21,28 +23,12 @@ public class ScoreLocationController : MonoBehaviour
         _attractor.hardCutOff = true;
         _attractor.x = (int) position.x;
         _attractor.y = (int) position.y;
+        _countComponents.SetRadius(_radius);
     }
-    
-    private void OnDrawGizmos()
-    {
-        Vector3 position = transform.position;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(new Vector3(position.x, position.y, position.z), _radius);
-    }
-    
+
     private void UpdateScore()
     {
-        Collider[] overlappingCollides = Physics.OverlapSphere(transform.position, _radius);
-        _currentScoringItems = 0;
-        foreach (var item in overlappingCollides)
-        { 
-            var scoringBehavior = item.GetComponent<ScoringBehavior>();
-            if (scoringBehavior != null)
-            {
-                _currentScoringItems += scoringBehavior.pointValue;
-            }
-        }
-
+        _currentScoringItems = _countComponents.Count<ScoringBehavior>();
         if (_lastScoringItems != _currentScoringItems)
         {
             _lastScoringItems = _currentScoringItems;
