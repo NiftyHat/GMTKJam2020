@@ -90,13 +90,16 @@ public class VectorField
 
 	protected void RecalculateAttractorGridForce(Attractor a)
 	{
+		int W2 = WidthByGrid * 2;
+		int H2 = HeightByGrid * 2;
+		
 		bool hardCutOff = a.hardCutOff;
 		int force = (int)(a.force / GridSize);
-		int maxWeight = hardCutOff ? Math.Abs(force * 2) : WidthByGrid * HeightByGrid;
+		int maxWeight = hardCutOff ? Math.Abs(force * 4) : W2 * H2;
 		
-		Vector2[,] values = new Vector2[WidthByGrid, HeightByGrid];
-		int[,] heatmap = new int[WidthByGrid, HeightByGrid];
-		for(int x = 0; x < WidthByGrid; x++) { for(int y = 0; y < HeightByGrid; y++) {
+		Vector2[,] values = new Vector2[W2, H2];
+		int[,] heatmap = new int[W2, H2];
+		for(int x = 0; x < W2; x++) { for(int y = 0; y < H2; y++) {
 			values[x, y] = Vector2.zero;
 			heatmap[x, y] = maxWeight;
 		}}
@@ -110,16 +113,24 @@ public class VectorField
 		int sX = Mathf.Clamp(a.x / GridSize, 0, WidthByGrid - 1);
 		int sY = Mathf.Clamp(a.y / GridSize, 0, HeightByGrid - 1);
 		
-		Point origin = new Point(sX, sY);
-		heatmap[sX, sY] = 0;
+		Point originA = new Point(sX * 2, sY * 2);
+		Point originB = new Point(sX * 2 + 1, sY * 2);
+		Point originC = new Point(sX * 2, sY * 2 + 1);
+		Point originD = new Point(sX * 2 + 1, sY * 2 + 1);
 
-		HashSet<Point> visitedPoints = new HashSet<Point>();
+		heatmap[originA.x, originA.y] = 0;
+		heatmap[originB.x, originB.y] = 0;
+		heatmap[originC.x, originC.y] = 0;
+		heatmap[originD.x, originD.y] = 0;
+
 		Queue<Point> floodFill = new Queue<Point>();
-		visitedPoints.Add(origin);
-		floodFill.Enqueue(origin);
+		floodFill.Enqueue(originA);
+		floodFill.Enqueue(originB);
+		floodFill.Enqueue(originC);
+		floodFill.Enqueue(originD);
 
-		int wPlus1 = WidthByGrid - 1;
-		int hPlus1 = HeightByGrid - 1;
+		int wPlus1 = W2 - 1;
+		int hPlus1 = H2 - 1;
 		
 		// Create Heatmap (floodfill from point)
 		while(floodFill.Count > 0) {
@@ -127,7 +138,7 @@ public class VectorField
 			int x = current.x;
 			int y = current.y;
 
-			if(map[x, y]) continue;
+			if(map[x / 2, y / 2]) continue;
 
 			int newWeight = heatmap[x, y] + 1;
 			if(newWeight > maxWeight) continue;
@@ -155,7 +166,7 @@ public class VectorField
 		}
 
 		float floatMaxWeight = (float)maxWeight;
-		for(int y = 0; y < HeightByGrid; y++) { for(int x = 0; x < WidthByGrid; x++) { 
+		for(int y = 0; y < H2; y++) { for(int x = 0; x < W2; x++) { 
 			if(heatmap[x, y] == maxWeight) continue;
 
 			int L = x == 0 ? maxWeight : heatmap[x - 1, y];
@@ -168,7 +179,7 @@ public class VectorField
 		}}
 
 		if(force < 0) {
-			for(int y = 0; y < HeightByGrid; y++) { for(int x = 0; x < WidthByGrid; x++) { 
+			for(int y = 0; y < H2; y++) { for(int x = 0; x < W2; x++) { 
 				values[x, y] = -values[x, y];
 			}}
 		}
@@ -193,8 +204,8 @@ public class VectorField
 
 			// Attractor functions as pathfindable around walls (smell) pathing around obstacles
 			case AttractorBehaviour.AROUND_WALLS:
-			int cX = Mathf.Clamp((int)(x / GridSize), 0, WidthByGrid - 1);
-			int cY = Mathf.Clamp((int)(y / GridSize), 0, HeightByGrid - 1);
+			int cX = Mathf.Clamp((int)((2 * x) / GridSize), 0, 2 * (WidthByGrid - 1));
+			int cY = Mathf.Clamp((int)((2 * y) / GridSize), 0, 2 * (HeightByGrid - 1));
 
 			if(!_attractorMap.ContainsKey(attractor)) RecalculateAttractorGridForce(attractor);
 			return _attractorMap[attractor][cX, cY];
