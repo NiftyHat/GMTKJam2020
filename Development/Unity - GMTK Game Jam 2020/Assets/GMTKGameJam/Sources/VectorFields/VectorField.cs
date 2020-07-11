@@ -60,7 +60,7 @@ public class VectorField
 	public void AddAttractor(Attractor a) 
 	{
 		_attractors.Add(a);
-		if(a.behaviour == AttractorBehaviour.AROUND_WALLS) {
+		if(a.behaviour == AttractorBehaviour.AROUND_WALLS || a.behaviour == AttractorBehaviour.BOTH_LOS_AND_AROUND_WALLS) {
 			RecalculateAttractorGridForce(a);
 		}
 	}
@@ -92,7 +92,7 @@ public class VectorField
 	{
 		bool hardCutOff = a.hardCutOff;
 		int force = (int)(a.force / GridSize);
-		int maxWeight = hardCutOff ? (int)(force * force) : WidthByGrid * HeightByGrid;
+		int maxWeight = hardCutOff ? Math.Abs(force * 2) : WidthByGrid * HeightByGrid;
 		
 		Vector2[,] values = new Vector2[WidthByGrid, HeightByGrid];
 		int[,] heatmap = new int[WidthByGrid, HeightByGrid];
@@ -163,33 +163,54 @@ public class VectorField
 			int D = y == 0 ? maxWeight : heatmap[x, y - 1];
 			int U = y == hPlus1 ? maxWeight : heatmap[x , y + 1];
 
-			values[x, y] = new Vector2(L - R, D - U).normalized * ((float)heatmap[x,y] / floatMaxWeight);
+			values[x, y] = new Vector2(L - R, D - U).normalized * (1 - ((float)heatmap[x,y] / floatMaxWeight));
+
 		}}
+
+		if(force < 0) {
+			for(int y = 0; y < HeightByGrid; y++) { for(int x = 0; x < WidthByGrid; x++) { 
+				values[x, y] = -values[x, y];
+			}}
+		}
 
 		_attractorMap[a] = values;
 	}
 
 	Vector2 getForce(float x, float y, Attractor attractor) {
+		float magnitude;
+		Vector2 direction;
+
 		switch(attractor.behaviour) {
 			
 			// Attractor functions through walls (sound) and path directly
 			case AttractorBehaviour.THROUGH_WALLS:
-			float magnitude = GetMagnitude(attractor, x, y);
-			Vector2 direction = new Vector2(attractor.x - x, attractor.y - y);
+			magnitude = GetMagnitude(attractor, x, y);
+			direction = new Vector2(attractor.x - x, attractor.y - y);
 			direction.Normalize();
 			direction.x *= magnitude;
 			direction.y *= magnitude;
 			return direction;
 
-			// Attractor functions only if direct line can be drawn (sight) with no obstacles
-			case AttractorBehaviour.LINE_OF_SIGHT:
-			return new Vector2();
-
 			// Attractor functions as pathfindable around walls (smell) pathing around obstacles
 			case AttractorBehaviour.AROUND_WALLS:
 			int cX = Mathf.Clamp((int)(x / GridSize), 0, WidthByGrid - 1);
 			int cY = Mathf.Clamp((int)(y / GridSize), 0, HeightByGrid - 1);
+
+			if(!_attractorMap.ContainsKey(attractor)) RecalculateAttractorGridForce(attractor);
 			return _attractorMap[attractor][cX, cY];
+
+			// Attractor functions only if direct line can be drawn (sight) with no obstacles
+			case AttractorBehaviour.LINE_OF_SIGHT:
+			if(!CanDrawLOSFromPointToAttractor(x, y, attractor)) return Vector2.zero;
+			// fall through to normal on success!
+			goto case AttractorBehaviour.THROUGH_WALLS;
+
+			// Attractor functions only if direct line can be drawn (sight) with no obstacles
+			// but also behaves caring about walls
+			case AttractorBehaviour.BOTH_LOS_AND_AROUND_WALLS:
+			if(!CanDrawLOSFromPointToAttractor(x, y, attractor)) return Vector2.zero;
+			// fall through to normal on success!
+			goto case AttractorBehaviour.AROUND_WALLS;
 		}
 
 		return new Vector2();
@@ -213,6 +234,17 @@ public class VectorField
 		return (ex * ex) + (ey * ey);
 	}
 
+	bool CanDrawLOSFromPointToAttractor(float x, float y, Attractor attractor) {
+		IEnumerable<Point> line = GetPointsOnLine(x, y, attractor.x, attractor.y);
+		IEnumerator<Point> enumer = line.GetEnumerator();
+		do {
+			Point p = enumer.Current;
+			if(p.x < 0 || p.x >= WidthByGrid || p.y < 0 || p.y >= HeightByGrid) break;
+			if(map[p.x, p.y]) return false;
+		} while (enumer.MoveNext());
+		return true;
+	}
+
 	#endregion
 
 	internal struct Point {
@@ -227,8 +259,15 @@ public class VectorField
 					 y == point.y;
 		}
 	}
-	IEnumerable<Point> GetPointsOnLine(int x0, int y0, int x1, int y1)
+	IEnumerable<Point> GetPointsOnLine(float fx0, float fy0, float fx1, float fy1)
 	{
+
+		int x0 = (int)(fx0 / GridSize);
+		int y0 = (int)(fy0 / GridSize);
+		int x1 = (int)(fx1 / GridSize);
+		int y1 = (int)(fy1 / GridSize);
+
+
 		bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
 		if (steep)
 		{

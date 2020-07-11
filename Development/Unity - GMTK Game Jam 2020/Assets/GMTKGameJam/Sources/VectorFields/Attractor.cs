@@ -14,5 +14,6 @@ public class Attractor {
 public enum AttractorBehaviour {
 	LINE_OF_SIGHT,
 	AROUND_WALLS,
-	THROUGH_WALLS
+	THROUGH_WALLS,
+	BOTH_LOS_AND_AROUND_WALLS
 }

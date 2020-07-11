@@ -10,25 +10,28 @@ public class VectorTestWithGrid : MonoBehaviour
 	public int NumberOfParticles = 100;
 	public Attractor[] Attractors;
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
 		// Create our Vector Field
-		vectorField = new VectorField(100, 100, 10);
+		vectorField = new VectorField(100, 100, 3);
 
 		// Add some random bits to it
+		int GridSize = vectorField.GridSize;
 
-		for(int i = 0; i < 25; i++) {
+		for(int i = 0; i < 3 * Mathf.Sqrt(vectorField.WidthByGrid * vectorField.HeightByGrid); i++) {
 			vectorField.Block(Random.Range(0, vectorField.WidthByGrid), Random.Range(0, vectorField.HeightByGrid));
 		}
 
+		float GridSizeO2 = (float)(vectorField.GridSize / 2f);
 		for(int x = 0; x < vectorField.WidthByGrid; x++) {
 			for(int y = 0; y < vectorField.HeightByGrid; y++) {
 				if(vectorField.IsBlockedAt(x, y)) {
-					Instantiate(solid, 
+					GameObject b = Instantiate(solid, 
 					new Vector3(
-						x * 10 + 5, 
-						y * 10 + 5, 0
+						x * GridSize + GridSizeO2, 
+						y * GridSize + GridSizeO2, 0
 					), Quaternion.identity);
+					b.transform.localScale = new Vector3(GridSize, GridSize, 10);
 				}
 			}
 		}
@@ -43,6 +46,8 @@ public class VectorTestWithGrid : MonoBehaviour
 		for(int i = 0; i < NumberOfParticles; i++) {
 			Instantiate(demoObject, new Vector3(Random.Range(0, 100), Random.Range(0, 100), 0), Quaternion.identity);
 		}
+		Destroy(demoObject);
+		Destroy(solid);
 	}
 
 	// Update is called once per frame

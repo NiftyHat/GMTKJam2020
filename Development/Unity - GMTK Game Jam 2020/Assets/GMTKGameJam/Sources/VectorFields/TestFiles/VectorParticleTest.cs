@@ -6,6 +6,7 @@ public class VectorParticleTest : MonoBehaviour
 {
 	VectorField ReferenceToTheVectorField;
 	public float speed = 10;
+	public float momentum = 0.01f;
 	void Start()
 	{
 		ReferenceToTheVectorField = FindObjectOfType<VectorTestWithGrid>().vectorField;
@@ -17,7 +18,7 @@ public class VectorParticleTest : MonoBehaviour
 		// Lerp from the Current Velocity to the Vector Grid's velocity
 		Vector2 desiredVelocity = ReferenceToTheVectorField.GetPower(transform.position) * speed;
 		Vector2 currentVelocity = transform.GetComponent<Rigidbody>().velocity;
-		transform.GetComponent<Rigidbody>().velocity = Vector2.Lerp(currentVelocity, desiredVelocity, 0.01f);
+		transform.GetComponent<Rigidbody>().velocity = Vector2.Lerp(currentVelocity, desiredVelocity, momentum);
 		
 		// Just keep it within bounds for now
 		Vector3 m = transform.position;
