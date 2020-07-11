@@ -54,7 +54,6 @@ namespace NiftyFramework.ScreenInput
 							screenPointRay = Camera.main.ScreenPointToRay(touchZero.position);
 							OnPrimaryInputStart(worldPosition, touchZero.deltaPosition, screenPointRay, 0, 0);
 						}
-
 						break;
 					case TouchPhase.Moved:
 						_inputStationaryTime = 0;
@@ -64,7 +63,6 @@ namespace NiftyFramework.ScreenInput
 							screenPointRay = Camera.main.ScreenPointToRay(touchZero.position);
 							OnPrimaryInputMoved(worldPosition, touchZero.deltaPosition, screenPointRay, _input1DownTime,0);
 						}
-
 						break;
 					case TouchPhase.Stationary:
 						_inputStationaryTime += Time.deltaTime;
@@ -74,7 +72,6 @@ namespace NiftyFramework.ScreenInput
 							screenPointRay = Camera.main.ScreenPointToRay(touchZero.position);
 							OnInputStationary(worldPosition, touchZero.deltaPosition, screenPointRay, _input1DownTime,0);
 						}
-
 						break;
 					case TouchPhase.Ended:
 						_inputStationaryTime = 0;
@@ -130,19 +127,23 @@ namespace NiftyFramework.ScreenInput
 						}
 					}
 				}
-				else if (Input.GetMouseButtonUp(0))
-				{
-					_input1DownTime += Time.deltaTime;
-					Vector2 mouseMoveDelta = _lastMousePosition - Input.mousePosition;
-					if (OnPrimaryInputEnd != null)
-					{
-						screenPointRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-						OnPrimaryInputEnd(worldPosition, mouseMoveDelta, screenPointRay, _input1DownTime,0);
-					}
-					_input1DownTime = 0;
-				}
+				
 			}
-			else if (Input.GetMouseButton(1))
+			else if (Input.GetMouseButtonUp(0))
+			{
+				Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+					Input.mousePosition.y, mainCamera.nearClipPlane));
+				_input1DownTime += Time.deltaTime;
+				Vector2 mouseMoveDelta = _lastMousePosition - Input.mousePosition;
+				if (OnPrimaryInputEnd != null)
+				{
+					screenPointRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+					OnPrimaryInputEnd(worldPosition, mouseMoveDelta, screenPointRay, _input1DownTime,0);
+				}
+				_input1DownTime = 0;
+			}
+			
+			if (Input.GetMouseButton(1))
 			{
 				Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
 					Input.mousePosition.y, mainCamera.nearClipPlane));
@@ -176,18 +177,19 @@ namespace NiftyFramework.ScreenInput
 						}
 					}
 				}
-				else if (Input.GetMouseButtonUp(1))
+			}
+			else if (Input.GetMouseButtonUp(1))
+			{
+				Vector3 worldPosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+					Input.mousePosition.y, mainCamera.nearClipPlane));
+				_input2DownTime += Time.deltaTime;
+				Vector2 mouseMoveDelta = _lastMousePosition - Input.mousePosition;
+				if (OnSecondaryInputEnd != null)
 				{
-					_input2DownTime += Time.deltaTime;
-					Vector2 mouseMoveDelta = _lastMousePosition - Input.mousePosition;
-					if (OnSecondaryInputEnd != null)
-					{
-						screenPointRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-						OnSecondaryInputEnd(worldPosition, mouseMoveDelta, screenPointRay, _input2DownTime,1);
-					}
-
-					_input2DownTime = 0;
+					screenPointRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+					OnSecondaryInputEnd(worldPosition, mouseMoveDelta, screenPointRay, _input2DownTime,1);
 				}
+				_input2DownTime = 0;
 			}
 		}
 	}

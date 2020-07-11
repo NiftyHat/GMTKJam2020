@@ -4,17 +4,13 @@ using UnityEngine;
 public class RollingCharacterController : MonoBehaviour
 {
     [SerializeField][NonNull] private ScreenInputController _inputController;
-
-    [SerializeField] private Collider _collider;
-    [SerializeField] private float _baseSpeed;
-    [SerializeField] private float _speedLossLerp = 0.05f;
-    [SerializeField] private float _rotationRate = 1f;
-    private float _currentSpeed = 0;
     
+    [SerializeField] private float _impulseAmount = 10f;
+    [SerializeField][NonNull] private Rigidbody _rigidbody;
+    [SerializeField] [NonNull] private ProjectileFireController _fireController;
     public float _raycastMaxDistance = 100f;
-
-    [SerializeField] private GameObject _firedProjectilePrefab;
-
+    public float _fireControllerDistance = 2f;
+    public bool _isPrimaryInputDown;
 
     public Vector3 _moveDirection;
     // Start is called before the first frame update
@@ -26,56 +22,59 @@ public class RollingCharacterController : MonoBehaviour
         }
         _inputController.OnPrimaryInputMoved += HandlePrimaryInputMoved;
         _inputController.OnPrimaryInputEnd += HandlePrimaryInputEnd;
-        _inputController.OnSecondaryInputStart += HandleSecondaryInputStart;
+        _inputController.OnSecondaryInputMoved += HandleSecondaryInputMoved;
         _inputController.OnSecondaryInputEnd += HandleSecondaryInputEnd;
     }
 
-    private void HandleSecondaryInputEnd(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputid)
+    private void HandleSecondaryInputEnd(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputId)
     {
-      
+        float clampedTime = Mathf.Clamp(time, 0, 2f);
+        _fireController.Fire(clampedTime);
     }
 
-    private void HandleSecondaryInputStart(Vector2 position, Vector2 delta, Ray screenpointray, float time, int inputid)
+    private void HandleSecondaryInputMoved(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputId)
     {
-        //throw new System.NotImplementedException();
+        bool isHit = Physics.Raycast(screenPointRay, out var hitInfo, _raycastMaxDistance);
+        if (isHit)
+        {
+            Vector3 physicsPosition = _rigidbody.transform.position;
+            Vector3 targetLocation = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+            Vector3 currentLocation= new Vector3(physicsPosition.x, 0, physicsPosition.z);
+            Vector3 directionTowardsInput = (targetLocation - currentLocation).normalized;
+            Vector3 fireControllerPosition = physicsPosition + directionTowardsInput * _fireControllerDistance;
+            _fireController.transform.position = fireControllerPosition;
+            _fireController.transform.LookAt(targetLocation);
+        }
     }
 
     private void HandlePrimaryInputMoved(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputId)
     {
-        RaycastHit hitInfo;
-        bool isHit = Physics.Raycast(screenPointRay, out hitInfo, _raycastMaxDistance);
+        _isPrimaryInputDown = false;
+        bool isHit = Physics.Raycast(screenPointRay, out var hitInfo, _raycastMaxDistance);
         if (isHit)
         {
-            Vector3 targetLocation = new Vector3(hitInfo.point.x, gameObject.transform.position.y, hitInfo.point.z);
-            Vector3 directionTowardsInput = (targetLocation - gameObject.transform.position).normalized;
+            Vector3 physicsPosition = _rigidbody.transform.position;
+            Vector3 targetLocation = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
+            Vector3 currentLocation= new Vector3(physicsPosition.x, 0, physicsPosition.z);
+            Vector3 directionTowardsInput = (targetLocation - currentLocation).normalized;
             _moveDirection = directionTowardsInput;
-            _currentSpeed = _baseSpeed;
+            _isPrimaryInputDown = true;
         }
     }
 
     private void HandlePrimaryInputEnd(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputId)
     {
+        _isPrimaryInputDown = false;
         _moveDirection = Vector3.zero;
     }
     
-
     // Update is called once per frame
     void Update()
     {
-        Vector3 velocity =  _moveDirection * (_currentSpeed * Time.deltaTime);
-        transform.position += velocity;
-        if (_currentSpeed > 0)
+        //Vector3 velocity =  _moveDirection * (_currentSpeed * Time.deltaTime);
+        if (_isPrimaryInputDown)
         {
-            _currentSpeed = Mathf.Lerp(_currentSpeed, 0, _speedLossLerp);
-        }
-        
-        Vector3 rbVelocity = velocity;
-        Vector3 correctedAxes = new Vector3(rbVelocity.z, 0, -rbVelocity.x) * _rotationRate;
-        _collider.transform.Rotate(correctedAxes, Space.World);
-
-        if (_currentSpeed <= 0.05f)
-        {
-            _currentSpeed = 0;
+            _rigidbody.AddForce(_moveDirection * _impulseAmount, ForceMode.Force);
         }
     }
 }
