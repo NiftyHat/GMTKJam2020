@@ -12,12 +12,6 @@ public class LevelBoundsPlacer : MonoBehaviour
 	{
 
 		VectorField = FindObjectOfType<VectorFieldController>().VectorField;
-		VectorField.Block(7, 10);
-		VectorField.Block(7, 9);
-		VectorField.Block(7, 8);
-		VectorField.Block(7, 7);
-		VectorField.Block(7, 6);
-		VectorField.Block(7, 5);
 		for(int x = 0; x < VectorField.WidthByGrid; x++) {
 			for(int y = 0; y < VectorField.HeightByGrid; y++) {
 				if(VectorField.IsBlockedAt(x, y)) Block(x, y);
