@@ -12,10 +12,11 @@ public class RollingCharacterController : MonoBehaviour
     [SerializeField] [NonNull] private ProjectileFireController _fireController;
     [SerializeField][NonNull] private BorkingBehavior _borkingBehavior;
     [SerializeField] [NonNull] private CountComponentsInRange _countComponents;
+    [SerializeField] private BorkAccumulator _borkAccumulator;
+    
     public float _raycastMaxDistance = 100f;
     public float _fireControllerDistance = 2f;
-    protected bool _isPrimaryInputDown;
-    [SerializeField] private BorkAccumulator _borkAccumulator;
+    private bool _isPrimaryInputDown;
 
     public event BorkAccumulator.DelegateOnChange OnBorkChange
     {
@@ -88,7 +89,7 @@ public class RollingCharacterController : MonoBehaviour
 
     private void HandleSecondaryInputEnd(Vector2 position, Vector2 delta, Ray screenPointRay, float time, int inputId)
     {
-        float clampedTime = Mathf.Clamp(time, 0, 2f);
+        float clampedTime = Mathf.Clamp(time, 0, 1f);
         _fireController.Fire(clampedTime);
     }
 

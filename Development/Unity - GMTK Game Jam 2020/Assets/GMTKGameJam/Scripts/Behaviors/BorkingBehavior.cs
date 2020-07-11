@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +10,8 @@ public class BorkingBehavior : MonoBehaviour
     [SerializeField] private float _repelRadiusMin;
     [SerializeField] private float _repelRadiusMax;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private float _bounceVelocity;
     
     [SerializeField] private bool _isBorking;
     private static readonly int NextBork = Animator.StringToHash("NextBork");
@@ -30,6 +33,10 @@ public class BorkingBehavior : MonoBehaviour
             int nextBork = Random.Range(1, 3);
             float nextWait = Random.Range(0.3f, 0.7f);
             _animator.SetInteger(NextBork, nextBork);
+            if (_rigidbody != null && Math.Abs(_rigidbody.velocity.y) < 0.05f)
+            {
+                _rigidbody.AddForce(Vector3.up * (_bounceVelocity * Random.Range(0.3f,0.5f)), ForceMode.Impulse );
+            }
             yield return new WaitForSeconds(nextWait);
         }
         yield return null;

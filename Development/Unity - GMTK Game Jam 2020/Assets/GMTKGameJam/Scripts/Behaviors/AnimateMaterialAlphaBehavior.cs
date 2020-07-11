@@ -17,7 +17,8 @@ public class AnimateMaterialAlphaBehavior : MonoBehaviour
         {
             foreach (var item in _renderer.materials)
             {
-                item.SetFloat(Alpha, alpha);
+                //item.SetFloat(Alpha, alpha);
+                //item.color = new Color(item.color.r, item.color.b, item.color.b, alpha);
             }
         }
     }

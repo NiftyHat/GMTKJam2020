@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 979549841186593284}
   - component: {fileID: 979549841186593285}
   - component: {fileID: 5059976954618821178}
-  - component: {fileID: 1100302726}
   m_Layer: 0
   m_Name: Bork1AnimationRoot
   m_TagString: Untagged
@@ -67,20 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 979549841401965838}
   alpha: 1
---- !u!114 &1100302726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979549841186593283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9350094ffe0df714189df0a7fe66705f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _renderer: {fileID: 979549841401965838}
-  alpha: 0
 --- !u!1 &979549841401965834
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +95,7 @@ Transform:
   m_GameObject: {fileID: 979549841401965834}
   m_LocalRotation: {x: 0.13275284, y: 0.80334085, z: -0.5467903, w: 0.19503981}
   m_LocalPosition: {x: 0, y: 3.29, z: 0.31}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 979549841186593284}
   m_RootOrder: 0
