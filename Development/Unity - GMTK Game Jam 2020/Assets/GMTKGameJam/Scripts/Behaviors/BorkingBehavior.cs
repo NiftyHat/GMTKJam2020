@@ -40,7 +40,7 @@ public class BorkingBehavior : MonoBehaviour
         public event DelegateOnChange OnChange;
         public event DelegateOnMax OnMax;
         
-        private float _value;
+        [SerializeField] private float _value;
 
         private float _cooldown;
 

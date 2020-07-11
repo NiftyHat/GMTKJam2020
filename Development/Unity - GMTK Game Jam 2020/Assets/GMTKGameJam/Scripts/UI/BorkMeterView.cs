@@ -6,10 +6,10 @@ public class BorkMeterView : MonoBehaviour
     [SerializeField] [NonNull] private RollingCharacterController _character;
     private float _maxValue;
     private float _value;
+    [SerializeField][NonNull] private RectTransform _fill;
+    [SerializeField] [NonNull] private GameObject _goView;
 
     private float _lastUpdateValue;
-    
-    [SerializeField][NonNull] private TextMeshProUGUI _debugText;
 
     public void Start()
     {
@@ -20,16 +20,19 @@ public class BorkMeterView : MonoBehaviour
     {
         _value = value;
         _maxValue = max;
+        if (value == max && !_goView.activeSelf)
+        {
+            _goView.SetActive(true);
+        }
     }
     
     // Update is called once per frame
     private void Update()
     {
-        if (_lastUpdateValue != _value && _debugText != null)
+        if (_lastUpdateValue != _value && _fill != null)
         {
             float perc = Mathf.Clamp01(_value / _maxValue);
-            _lastUpdateValue = _value;
-            _debugText.text = $"BORK [{perc:P0}]";
+            _fill.localScale = new Vector3(_fill.localScale.x, perc, _fill.localScale.z);
         }
     }
 }
