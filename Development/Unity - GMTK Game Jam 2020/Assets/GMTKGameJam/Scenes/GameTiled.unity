@@ -382,7 +382,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radius: 8.4
   _itemsPerSpawn: 20
-  _prefab: {fileID: 3615926582676974132, guid: 2fc47bb7cabd6de4fa0e395043246cb5, type: 3}
+  _prefabList:
+  - {fileID: 3408230674114493737, guid: 5546e982975d239408d709dfa417b68e, type: 3}
+  - {fileID: 2043461095169966449, guid: 9af18e3f84985cb4ea21f1f0e1e0bfd9, type: 3}
+  - {fileID: 2600525698627527748, guid: ad01eac0832d27b418d1b127f25ddd70, type: 3}
+  - {fileID: 8884050985175250536, guid: c7015828953c4cc4db3151b40c2a82ed, type: 3}
   _spawnOnStart: 1
   _objectSpacing: 4
 --- !u!1 &110245909
@@ -4552,11 +4556,6 @@ MonoBehaviour:
   _rigidbody: {fileID: 1431209881}
   _fireController: {fileID: 1983552992}
   _borkingBehavior: {fileID: 1345862203}
-  _countComponents: {fileID: 1345862204}
-  _borkAccumulator:
-    _max: 100
-    _cooldownTime: 3
-    _baseIncreaseSpeed: 50
   _raycastMaxDistance: 100
   _fireControllerDistance: 1
 --- !u!1001 &1004745904
@@ -5864,12 +5863,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _repelRadiusMin: 4
-  _repelRadiusMax: 10
+  _repelRangeMultiplier: 15
+  _repelRangeBase: 4
   _animator: {fileID: 1100302725}
   _rigidbody: {fileID: 1431209881}
-  _bounceVelocity: 25
+  _bounceVelocity: 50
   _isBorking: 0
+  _countComponents: {fileID: 1345862204}
+  _borkAccumulator:
+    _max: 100
+    _cooldownTime: 4
+    _baseIncreaseSpeed: 5
 --- !u!114 &1345862204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8036,8 +8040,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firedProjectilePrefab: {fileID: 4777666250115577317, guid: 4c6039061a5130543a2451b628d88ed0,
     type: 3}
-  forceMin: 35
-  forceMax: 70
+  _powerCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.001648
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9991455
+      value: 1.9967346
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _powerMultiplier: 15
 --- !u!1 &1988815217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 00c5667fd1796c74a82220c3022db94b,
