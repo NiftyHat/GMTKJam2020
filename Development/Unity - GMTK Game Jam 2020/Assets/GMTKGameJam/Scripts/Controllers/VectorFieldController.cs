@@ -16,7 +16,7 @@ public class VectorFieldController : MonoBehaviour
     {
 		int width = (int)Bounds.width;
 		int height = (int)Bounds.height;
-		_vectorField = new VectorField(50, 50, 1);
+		_vectorField = new VectorField(100, 100, 1);
 
 		for(int x = 0; x < VectorField.WidthByGrid; x++) {
 			VectorField.Block(x, 0);
