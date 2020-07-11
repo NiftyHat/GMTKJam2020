@@ -19,7 +19,7 @@ public class VectorTest : MonoBehaviour
 
 		// Add all our attractors to it.
 		foreach(Attractor a in Attractors) {
-			vectorField.AddOrReplaceAttractor(a);
+			vectorField.AddAttractor(a);
 		}
 
 		// Make a load of cats and colliders

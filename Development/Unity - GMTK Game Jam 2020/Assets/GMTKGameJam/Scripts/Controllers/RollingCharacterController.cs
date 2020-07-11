@@ -10,9 +10,9 @@ public class RollingCharacterController : MonoBehaviour
     [SerializeField] [NonNull] private ProjectileFireController _fireController;
     public float _raycastMaxDistance = 100f;
     public float _fireControllerDistance = 2f;
-    public bool _isPrimaryInputDown;
+    protected bool _isPrimaryInputDown;
 
-    public Vector3 _moveDirection;
+    protected Vector3 _moveDirection;
     // Start is called before the first frame update
     void Start()
     {

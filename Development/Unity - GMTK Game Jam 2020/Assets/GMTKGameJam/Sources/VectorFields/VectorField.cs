@@ -1,33 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class VectorField
 {
 	// Width of the map, in Map Units
 	public bool isLocked {get; private set;}
-	private Dictionary<int, Attractor> Attractors;
+	private readonly List<Attractor> _attractors;
 	private bool[,] map;
 
 	public VectorField()
 	{
-		Attractors = new Dictionary<int, Attractor>();
+		_attractors = new List<Attractor>();
 	}
 
-	public void AddOrReplaceAttractor(Attractor a) {
-		Attractors[a.id] = a;
+	public void AddAttractor(Attractor a) 
+	{
+		_attractors.Add(a);
 	}
-
-	public void RemoveAttractor(int id) {
-		if(Attractors.ContainsKey(id)) Attractors.Remove(id);
+	
+	public void RemoveAttractor(Attractor a) 
+	{
+		_attractors.Remove(a);
 	}
 
 	public Vector2 GetPower(Vector2 from) {
 		Vector2 result = new Vector2();
 		float x = from.x;
 		float y = from.y;
-		foreach(KeyValuePair<int, Attractor> a in Attractors) {
-			result += getForce(x, y, a.Value);
+		foreach(Attractor attractor in _attractors) {
+			result += getForce(x, y, attractor);
 		}
 		return result.normalized;
 	}

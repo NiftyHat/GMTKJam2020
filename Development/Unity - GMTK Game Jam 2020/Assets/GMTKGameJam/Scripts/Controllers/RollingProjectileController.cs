@@ -6,6 +6,7 @@ public class RollingProjectileController : MonoBehaviour
     [SerializeField] private float _initialImpulseMin = 10f;
     [SerializeField][NonNull] private Rigidbody _rigidbody;
     [SerializeField][NonNull] private Collider _collider;
+    [SerializeField] [NonNull] private VectorFieldDynamicUpdateBehavior _vectorFieldUpdateBehavior;
 
     [SerializeField] private float _initialLifespan = 100.0f;
 
@@ -29,16 +30,12 @@ public class RollingProjectileController : MonoBehaviour
 
     void Update()
     {
-        if (_rigidbody.velocity.magnitude > 0.1f)
-        {
-            _lifeSpan -= Mathf.Clamp01(_rigidbody.velocity.magnitude) * Time.deltaTime;
-            //_lifespan -= Mathf.Clamp(_rigidbody.velocity.magnitude * 0.1f * Time.deltaTime, _lifespanMaxLoss, _lifespanMinLoss);
-        }
+        _lifeSpan -= Mathf.Max( Mathf.Clamp01(_rigidbody.velocity.magnitude)  * Time.deltaTime, Time.deltaTime);
 
-        if (_lifeSpan < 0)
+        if (_lifeSpan <= 0)
         {
             _lifeSpan = 0;
-            GameObject.Destroy(this);
+            Destroy(gameObject);
         }
         
         float curveScaleValue = _scaleCurve.Evaluate(_lifeSpan / _initialLifespan);
