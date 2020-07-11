@@ -9,6 +9,7 @@ public class ScoreLocationController : MonoBehaviour
 
     [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
     [SerializeField] private float _radius = 5;
+    [SerializeField] [NonNull] private FriendBehaviour _friendBehaviour;
     
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
@@ -31,10 +32,12 @@ public class ScoreLocationController : MonoBehaviour
         _currentScoringItems = _countComponents.Count<ScoringBehavior>();
         if (_lastScoringItems != _currentScoringItems)
         {
+            float normalizedScore = 1.0f / _requiredScoringItems * _currentScoringItems;
+            _friendBehaviour.AmountOfCat = normalizedScore;
             _lastScoringItems = _currentScoringItems;
             if (_scoreText != null)
             {
-                _scoreText.text = (_requiredScoringItems - _currentScoringItems).ToString();
+                _scoreText.text = Mathf.Min(_requiredScoringItems - _currentScoringItems, 0).ToString();
             }
         }
     }
