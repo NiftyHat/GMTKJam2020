@@ -6,7 +6,7 @@ public class RadiusSpawnController : MonoBehaviour
 {
     [SerializeField] private float _radius = 1f;
     [SerializeField] private int _itemsPerSpawn;
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private GameObject[] _prefabList;
     [SerializeField] private PrefabObjectPool _pool;
     [SerializeField] private bool _spawnOnStart;
     [SerializeField] private float _objectSpacing = 1.4f;
@@ -15,7 +15,7 @@ public class RadiusSpawnController : MonoBehaviour
 
     public void Awake()
     {
-        _pool = new PrefabObjectPool(_prefab, 100);
+        _pool = new PrefabObjectPool(_prefabList, 100);
         _offset = new Vector3(-_radius,0 , -_radius);
     }
     
@@ -40,7 +40,7 @@ public class RadiusSpawnController : MonoBehaviour
             Vector3 randomPosition = origin + new Vector3(item.x, 0, item.y);
             Quaternion facing = Quaternion.Euler(randomPosition - origin);
             RollingCatController controller = _pool.Get<RollingCatController>(parent, randomPosition, facing);
-            controller.gameObject.transform.LookAt(transform.position - randomPosition  *2f);
+            //controller.gameObject.transform.LookAt(transform.position - randomPosition  *2f);
             if (spawnCount > _itemsPerSpawn)
             {
                 break;
