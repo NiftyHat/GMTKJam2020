@@ -64,7 +64,7 @@ MonoBehaviour:
     id: 0
     x: 0
     y: 0
-    force: 4
+    force: 15
     hardCutOff: 1
     behaviour: 1
 --- !u!54 &1864331242
