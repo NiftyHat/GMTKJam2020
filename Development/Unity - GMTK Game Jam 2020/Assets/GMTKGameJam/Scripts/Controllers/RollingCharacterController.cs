@@ -8,7 +8,8 @@ public class RollingCharacterController : MonoBehaviour
     [SerializeField] private float _impulseAmount = 10f;
     [SerializeField][NonNull] private Rigidbody _rigidbody;
     [SerializeField] [NonNull] private ProjectileFireController _fireController;
-    [SerializeField][NonNull] private BorkingBehavior _borkingBehavior; 
+    [SerializeField][NonNull] private BorkingBehavior _borkingBehavior;
+
     public BorkingBehavior BorkingBehavior => _borkingBehavior;
 
     private float _fireChargeTime = 1.4f;
