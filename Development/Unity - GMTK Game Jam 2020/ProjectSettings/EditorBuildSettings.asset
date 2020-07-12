@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GMTKGameJam/Scenes/Main.unity
-    guid: 198bad6136ab9704ca0aaea3b99d6968
-  - enabled: 1
-    path: Assets/GMTKGameJam/Scenes/Tutorial01.unity
+    path: Assets/GMTKGameJam/Scenes/Tutorial.unity
     guid: 05bc45af6776d974596f16d3c31be7fd
   - enabled: 1
-    path: Assets/GMTKGameJam/Scenes/GameTiled.unity
-    guid: e02b8972cbe42544991f0696c89c689b
+    path: Assets/GMTKGameJam/Scenes/Level 1.unity
+    guid: 917e2a622edb90149a4066ae322f04ea
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Level 4.unity
+    guid: b68f64c370b4d4f4aae0c89a2bf6439b
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Level 2.unity
+    guid: 42a29907786c4a847808c37d7c8e42ec
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Level 3.unity
+    guid: c9807fe5de8b10f40ba313f72b2f75c0
   m_configObjects: {}

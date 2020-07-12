@@ -9,11 +9,13 @@ public class BorkMeterView : MonoBehaviour
     [SerializeField][NonNull] private RectTransform _fill;
     [SerializeField] [NonNull] private GameObject _goView;
 
-    private float _lastUpdateValue;
+    private float _lastUpdateValue = 0;
+	 public bool startWithBorkDisplayed = false;
 
     public void Start()
     {
         _character.BorkingBehavior.OnBorkChange += Set;
+		  if(startWithBorkDisplayed) _goView.SetActive(true);
     }
 
     private void Set(float value, float max, float cooldown)

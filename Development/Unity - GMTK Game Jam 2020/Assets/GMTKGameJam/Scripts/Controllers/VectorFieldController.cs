@@ -24,6 +24,8 @@ public class VectorFieldController : MonoBehaviour
 		GameObject border = new GameObject();
 		border.name = "Borders";
 		border.transform.parent = transform;
+		Transform borderParentRef = border.transform;
+		/*
 		GameObject a = Instantiate(BorderCollider, new Vector3(Bounds.width / 2, 0, 0), Quaternion.identity);
 		a.transform.localScale = new Vector3(Bounds.width, 1, 1);
 		a.transform.parent = border.transform;
@@ -36,14 +38,26 @@ public class VectorFieldController : MonoBehaviour
 		a = Instantiate(BorderCollider, new Vector3(Bounds.width - 1, 0, Bounds.height / 2), Quaternion.identity);
 		a.transform.localScale = new Vector3(1, 1, Bounds.height);
 		a.transform.parent = border.transform;
+		*/
 
+		Quaternion r90OnY = Quaternion.Euler(0, 90, 0);
 		for(int x = 0; x < VectorField.WidthByGrid; x++) {
 			VectorField.Block(x, 0);
 			VectorField.Block(x, VectorField.HeightByGrid - 1);
+
+			GameObject a = Instantiate(BorderCollider, new Vector3(x, 0, 0), r90OnY);
+			a.transform.parent = borderParentRef;
+			a = Instantiate(BorderCollider, new Vector3(x, 0, Bounds.height - 1), r90OnY);
+			a.transform.parent = borderParentRef;
 		}
 		for(int y = 0; y < VectorField.HeightByGrid; y++) {
 			VectorField.Block(0, y);
 			VectorField.Block(VectorField.WidthByGrid - 1, y);
+
+			GameObject a = Instantiate(BorderCollider, new Vector3(0, 0, y), Quaternion.identity);
+			a.transform.parent = borderParentRef;
+			a = Instantiate(BorderCollider, new Vector3(Bounds.width - 1, 0, y), Quaternion.identity);
+			a.transform.parent = borderParentRef;
 		}
 
 		foreach (Attractor attractor in _attractors)

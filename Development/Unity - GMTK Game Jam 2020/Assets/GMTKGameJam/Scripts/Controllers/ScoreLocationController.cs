@@ -1,12 +1,14 @@
-﻿using System;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreLocationController : MonoBehaviour
 {
     
     [SerializeField] protected Attractor _attractor;
     [SerializeField] protected TextMeshPro _scoreText;
+    [SerializeField] protected TextMeshPro _labelText;
 
     [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
     [SerializeField] private float _radius = 5;
@@ -16,9 +18,10 @@ public class ScoreLocationController : MonoBehaviour
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
     [SerializeField] private int _requiredScoringItems = 2;
-    private LevelController _controller;
 
-    public bool HasRequired => _currentScoringItems >= _requiredScoringItems || _debugComplete;
+	 [SerializeField] private  float timeRequired = 3.0f;
+	 [SerializeField] private float currentTimeRemaining;
+	 public bool levelComplete = false;
     
     // Start is called before the first frame update
     void Start()
@@ -30,39 +33,59 @@ public class ScoreLocationController : MonoBehaviour
         _attractor.x = (int) position.x;
         _attractor.y = (int) position.y;
         _countComponents.SetRadius(_radius);
-        
-        _controller = FindObjectOfType<LevelController>();
-        if (_controller != null)
-        {
-            _controller.TrackScoreLocation(this);
-        }
+
+		  currentTimeRemaining = timeRequired;
     }
 
     private void UpdateScore()
     {
-        _currentScoringItems = _countComponents.Count<ScoringBehavior>();
-        if (_lastScoringItems != _currentScoringItems)
-        {
-            float normalizedScore = 1.0f / _requiredScoringItems * _currentScoringItems;
-            _friendBehaviour.AmountOfCat = normalizedScore;
-            _lastScoringItems = _currentScoringItems;
-            if (_scoreText != null)
-            {
-                _scoreText.text = Mathf.Max(_requiredScoringItems - _currentScoringItems, 0).ToString();
-            }
-        }
+		_currentScoringItems = _countComponents.Count<ScoringBehavior>();
+
+
+
+		if (_lastScoringItems != _currentScoringItems)
+		{
+		float normalizedScore = (float)_currentScoringItems / (float)_requiredScoringItems;
+		_friendBehaviour.AmountOfCat = normalizedScore;
+
+		if(_currentScoringItems < _requiredScoringItems) {
+			_labelText.text = "kitties needed";
+			_scoreText.gameObject.SetActive(true);
+		} else if (timeRequired > 0) {
+			_labelText.text = "hold...";
+			_scoreText.gameObject.SetActive(false);
+		}
+
+			_lastScoringItems = _currentScoringItems;
+			if (_scoreText != null)
+			{
+				_scoreText.text = Mathf.Max(_requiredScoringItems - _currentScoringItems, 0).ToString();
+			}
+		}
     }
     // Update is called once per frame
     void Update()
     {
-        if (_controller == null)
-        {
-            _controller = FindObjectOfType<LevelController>();
-            if (_controller != null)
-            {
-                _controller.TrackScoreLocation(this);
-            }
-        }
+		 if(levelComplete) return;
+
         UpdateScore();
+
+		  if(_requiredScoringItems - _lastScoringItems <= 0) { 
+			  currentTimeRemaining -= Time.deltaTime;
+			  if(currentTimeRemaining <= 0) {
+				  levelComplete = true;
+				  _labelText.text = "level complete";
+				  StartCoroutine("GotoNextLevel");
+			  }
+			}
+		  else {
+			  currentTimeRemaining += Time.deltaTime;
+			  if(currentTimeRemaining > timeRequired) currentTimeRemaining = timeRequired;
+		  }
     }
+
+	 IEnumerator GotoNextLevel() {
+		yield return new WaitForSeconds(3);
+		FindObjectOfType<UIControlsBehaviour>().NextLevel();
+	 }
 }
