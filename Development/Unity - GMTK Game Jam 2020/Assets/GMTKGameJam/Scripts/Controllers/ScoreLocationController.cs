@@ -15,7 +15,7 @@ public class ScoreLocationController : MonoBehaviour
     
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
-    private int _requiredScoringItems = 2;
+    [SerializeField] private int _requiredScoringItems = 2;
     private LevelController _controller;
 
     public bool HasRequired => _currentScoringItems >= _requiredScoringItems || _debugComplete;

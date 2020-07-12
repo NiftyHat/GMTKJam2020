@@ -2174,12 +2174,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 861375434}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &776674189 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2468514862274336140, guid: 9ebaca0f6ac6d9d42b3647635b7ecaa5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1791558654}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &799448268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2468514862259407935, guid: 3e077e80d6b76084895a908edec8b85f,
@@ -3488,7 +3482,8 @@ MonoBehaviour:
     width: 70
     height: 32.17
   _attractors: []
-  BorderCollider: {fileID: 776674189}
+  BorderCollider: {fileID: 2104311631909218628, guid: e2eb955bd3f9b0c4f912658116f2346b,
+    type: 3}
 --- !u!114 &1308736441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,8 +3496,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07a41cb3505f454ba0d4e8e6c279e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentSceneName: Tutorial
-  _nextSceneName: GameTiled
   _levelEndDelay: 5
 --- !u!1001 &1312702735
 PrefabInstance:
@@ -6252,6 +6245,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4909621660728978564, guid: a81c61525edd4f34fa1af7615fcaa357,
+        type: 3}
+      propertyPath: _vectorFieldController
+      value: 
+      objectReference: {fileID: 1308736440}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a81c61525edd4f34fa1af7615fcaa357, type: 3}
 --- !u!1001 &2146920072

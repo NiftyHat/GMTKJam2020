@@ -6,6 +6,10 @@ public class VectorFieldMovementBehavior : MonoBehaviour
     private VectorField _vectorField;
     private Rigidbody _rigidbody;
     protected float _speed = 10;
+    private Vector2 _vectorFieldVelocity;
+
+    public Vector2 VectorFieldVelocity => _vectorFieldVelocity;
+
     void Start()
     {
         _rigidbody = transform.GetComponent<Rigidbody>();
@@ -18,9 +22,9 @@ public class VectorFieldMovementBehavior : MonoBehaviour
         if (_vectorField != null)
         {
             Vector2 positionVec2 = new Vector2(transform.position.x, transform.position.z);
-            Vector2 vectorFieldPower = _vectorField.GetPower(positionVec2) * _speed;
+            _vectorFieldVelocity = _vectorField.GetPower(positionVec2) * _speed;
             // Lerp from the Current Velocity to the Vector Grid's velocity
-            Vector3 desiredVelocity = new Vector3(vectorFieldPower.x, 0, vectorFieldPower.y);
+            Vector3 desiredVelocity = new Vector3(_vectorFieldVelocity.x, 0, _vectorFieldVelocity.y);
             Vector3 currentVelocity = _rigidbody.velocity;
             _rigidbody.velocity = Vector3.Lerp(currentVelocity, desiredVelocity, 0.01f);
         }
