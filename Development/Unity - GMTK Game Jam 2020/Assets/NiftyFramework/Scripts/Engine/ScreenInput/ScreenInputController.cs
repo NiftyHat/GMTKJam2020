@@ -15,7 +15,7 @@ namespace NiftyFramework.ScreenInput
 		
 		private Vector3 _lastMousePosition; //used to track onInputMove/onInput stationary for the mouse
 
-		[NonNull] public Camera mainCamera;
+		public Camera mainCamera;
 
 
 		public event InputUpdateHandler OnPrimaryInputStart;
