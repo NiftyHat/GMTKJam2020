@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5157262399475209466
+--- !u!1001 &3347739247228857157
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3615926582676974132, guid: 2fc47bb7cabd6de4fa0e395043246cb5,
         type: 3}
       propertyPath: m_Name
-      value: Cat-Maverik Variant
+      value: Cat-May Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3615926582676974133, guid: 2fc47bb7cabd6de4fa0e395043246cb5,
         type: 3}
@@ -71,6 +71,6 @@ PrefabInstance:
         type: 3}
       propertyPath: _texture
       value: 
-      objectReference: {fileID: 2800000, guid: 2124c4e1d2948ac44969562510e83d80, type: 3}
+      objectReference: {fileID: 2800000, guid: fd597222299bf3542b4f9d41686dcaec, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fc47bb7cabd6de4fa0e395043246cb5, type: 3}

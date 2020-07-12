@@ -44,12 +44,15 @@ public class RollingCharacterController : MonoBehaviour
         if (isHit)
         {
             Vector3 physicsPosition = _rigidbody.transform.position;
-            Vector3 targetLocation = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
-            Vector3 currentLocation= new Vector3(physicsPosition.x, 0, physicsPosition.z);
+            Vector3 targetLocation = new Vector3(hitInfo.point.x, physicsPosition.y, hitInfo.point.z);
+            Vector3 currentLocation= new Vector3(physicsPosition.x, physicsPosition.y, physicsPosition.z);
             Vector3 directionTowardsInput = (targetLocation - currentLocation).normalized;
             Vector3 fireControllerPosition = physicsPosition + directionTowardsInput * _fireControllerDistance;
+            Vector3 lookAtTarget = currentLocation + (directionTowardsInput * 5f) + (Vector3.up * 2f);
             _fireController.transform.position = fireControllerPosition;
-            _fireController.transform.LookAt(targetLocation);
+            
+            
+            _fireController.transform.LookAt(lookAtTarget);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class ProjectileFireController : MonoBehaviour
     
     [SerializeField] private AnimationCurve _powerCurve;
     [SerializeField] private float _powerMultiplier = 1.0f;
-    
+
     // Start is called before the first frame update
     public void Fire(float powerPercentage)
     {
@@ -17,5 +18,11 @@ public class ProjectileFireController : MonoBehaviour
 
         float force = _powerCurve.Evaluate(powerPercentage) * _powerMultiplier;
         controller.Fire(transform.transform.forward, force);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawRay(transform.position, transform.forward * 15f);
     }
 }

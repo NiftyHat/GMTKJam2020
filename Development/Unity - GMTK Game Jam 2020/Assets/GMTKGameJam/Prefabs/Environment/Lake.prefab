@@ -52,7 +52,6 @@ MonoBehaviour:
     force: -8
     hardCutOff: 1
     behaviour: 0
-  _radius: 1
 --- !u!1001 &1799247021243827298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -134,13 +133,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 2100000, guid: 4f0ffde3b1e58a648974c3cdfd85759c, type: 2}
+      objectReference: {fileID: 2100000, guid: 65bc83172e8fe504bbbb0e2fa50fcd7b, type: 2}
     - target: {fileID: -7511558181221131132, guid: e92a88d8fc112574a86ac5733b613f9e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -8499701361930146817, guid: e92a88d8fc112574a86ac5733b613f9e,
-        type: 3}
+      objectReference: {fileID: 2100000, guid: a519a003c23204b438b1727bdb60d4e0, type: 2}
     - target: {fileID: -7511558181221131132, guid: e92a88d8fc112574a86ac5733b613f9e,
         type: 3}
       propertyPath: m_Materials.Array.data[2]
@@ -151,6 +149,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[4]
       value: 
       objectReference: {fileID: 2100000, guid: fda1060cb2cd3f64c93a07031b909e2d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: e92a88d8fc112574a86ac5733b613f9e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae0fbb26f8f3107448e8ff5e1c810b51, type: 2}
     - target: {fileID: 919132149155446097, guid: e92a88d8fc112574a86ac5733b613f9e,
         type: 3}
       propertyPath: m_Name

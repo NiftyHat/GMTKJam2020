@@ -20,7 +20,7 @@ public class BorkMeterView : MonoBehaviour
     {
         _value = value;
         _maxValue = max;
-        if (value == max && !_goView.activeSelf)
+        if (cooldown > 0 && !_goView.activeSelf)
         {
             _goView.SetActive(true);
         }

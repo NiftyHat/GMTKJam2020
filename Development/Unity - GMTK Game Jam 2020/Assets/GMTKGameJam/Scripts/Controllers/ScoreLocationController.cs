@@ -37,7 +37,7 @@ public class ScoreLocationController : MonoBehaviour
             _lastScoringItems = _currentScoringItems;
             if (_scoreText != null)
             {
-                _scoreText.text = Mathf.Min(_requiredScoringItems - _currentScoringItems, 0).ToString();
+                _scoreText.text = Mathf.Max(_requiredScoringItems - _currentScoringItems, 0).ToString();
             }
         }
     }
