@@ -2,19 +2,14 @@
 
 public class RollingProjectileController : MonoBehaviour
 {
-
-    [SerializeField] private float _initialImpulseMin = 10f;
     [SerializeField][NonNull] private Rigidbody _rigidbody;
     [SerializeField][NonNull] private Collider _collider;
-    [SerializeField] [NonNull] private VectorFieldDynamicUpdateBehavior _vectorFieldUpdateBehavior;
 
     [SerializeField] private float _initialLifespan = 100.0f;
-
     [SerializeField] private AnimationCurve _scaleCurve;
 
-    protected float _lifeSpan;
-
-    protected Vector3 _initialScale;
+    private float _lifeSpan;
+    private Vector3 _initialScale;
     // Start is called before the first frame update
     void Start()
     {

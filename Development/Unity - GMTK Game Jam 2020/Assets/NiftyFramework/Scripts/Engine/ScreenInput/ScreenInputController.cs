@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
@@ -14,7 +15,7 @@ namespace NiftyFramework.ScreenInput
 		
 		private Vector3 _lastMousePosition; //used to track onInputMove/onInput stationary for the mouse
 
-		public Camera mainCamera;
+		[NonNull] public Camera mainCamera;
 
 
 		public event InputUpdateHandler OnPrimaryInputStart;
@@ -28,9 +29,18 @@ namespace NiftyFramework.ScreenInput
 
 		public void Start()
 		{
-			mainCamera = Camera.main;
+			if (Camera.main != null && mainCamera == null)
+			{
+				mainCamera = Camera.main;
+			}
+			
 		}
-		
+
+		public void OnDestroy()
+		{
+			mainCamera = null;
+		}
+
 		// Update is called once per frame
 		public void Update()
 		{

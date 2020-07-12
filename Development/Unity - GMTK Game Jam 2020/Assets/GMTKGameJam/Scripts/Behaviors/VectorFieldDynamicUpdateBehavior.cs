@@ -29,7 +29,10 @@ public class VectorFieldDynamicUpdateBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
-        _vectorField.RemoveAttractor(_attractor);
+        if (_vectorField != null)
+        {
+            _vectorField.RemoveAttractor(_attractor);
+        }
     }
 
     public void SetRepelForce(float force)
@@ -48,7 +51,7 @@ public class VectorFieldDynamicUpdateBehavior : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    public void OnDrawGizmos()
     {
         Gizmos.color = _attractor.force < 0 ? Color.red : Color.green;
         Gizmos.DrawWireSphere(new Vector3(_attractor.x, 0, _attractor.y), _attractor.force);

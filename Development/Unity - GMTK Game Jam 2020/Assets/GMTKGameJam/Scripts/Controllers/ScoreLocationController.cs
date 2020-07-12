@@ -13,6 +13,7 @@ public class ScoreLocationController : MonoBehaviour
     [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
     [SerializeField] private float _radius = 5;
     [SerializeField] [NonNull] private FriendBehaviour _friendBehaviour;
+    [SerializeField] private bool _debugComplete;
     
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;

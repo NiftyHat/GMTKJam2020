@@ -26,7 +26,7 @@ SpringJoint:
   m_ConnectedBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 8.826, y: -0.179, z: 0.011}
+  m_ConnectedAnchor: {x: 9, y: 0, z: 0}
   serializedVersion: 2
   m_Spring: 10
   m_Damper: 0.2
@@ -291,6 +291,7 @@ MonoBehaviour:
     _max: 100
     _cooldownTime: 4
     _baseIncreaseSpeed: 5
+    _value: 0
 --- !u!114 &8871373333562743153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Dog
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0092eb4e3f83b464f9bf93f9487c39c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8626556171524285589, guid: 0092eb4e3f83b464f9bf93f9487c39c2,
         type: 3}

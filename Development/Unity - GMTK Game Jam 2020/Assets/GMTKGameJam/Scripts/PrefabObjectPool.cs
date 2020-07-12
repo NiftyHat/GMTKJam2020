@@ -84,7 +84,7 @@ public class PrefabObjectPool
         if (_pooledItems.Count < _size)
         {
             GameObject prefab = GetPrefab();
-            GameObject obj = GameObject.Instantiate(prefab, position, rotation);
+            GameObject obj = GameObject.Instantiate(prefab, position, rotation, parent);
             if (obj != null)
             {
                 TComponent component = obj.GetComponent<TComponent>();

@@ -23,7 +23,7 @@ public class RadiusSpawnController : MonoBehaviour
     {
         if (_spawnOnStart)
         {
-            Spawn(_itemsPerSpawn, transform);
+            Spawn(_itemsPerSpawn, gameObject.transform);
         }
     }
 

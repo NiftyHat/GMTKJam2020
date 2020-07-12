@@ -51,6 +51,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _texture: {fileID: 2800000, guid: 7c780cfbb4a6fc94ca0cf073c0387d28, type: 3}
   _renderer: {fileID: 2141181209121698498}
+  _vectorFieldMovement: {fileID: 3615926582676974138}
+  _rigidbody: {fileID: 3615926582676974135}
+  _randomWaitRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0006637573
+      value: 0.89294434
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _waitRangeMultiply: 1.4
+  _waitRangeBase: 0.5
+  _randomVelocityRange:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0006637573
+      value: 0.9038086
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _randomVelocityMultiplier: 1
+  _catSearchRadius: 3
+  _feelings: 0
 --- !u!135 &3615926582676974137
 SphereCollider:
   m_ObjectHideFlags: 0
