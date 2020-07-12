@@ -4,22 +4,30 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIControlsBehaviour : MonoBehaviour
 {
 
 	public TMP_Text MuteButtonText;
+	public Image MusicSprite;
 	public MusicPlayer MusicPlayerRef;
+
+	public Sprite MusicOn;
+	public Sprite MusicOff;
 
 	void Awake() {
 		if(FindObjectsOfType<MusicPlayer>().Length == 0) {
 			Instantiate(MusicPlayerRef);
 		}
+		
 		UpdateUI();
 	}
 
 	private void UpdateUI()
 	{
+		bool muted = FindObjectOfType<MusicPlayer>().Mute;
+		MusicSprite.sprite = muted ? MusicOff : MusicOn;
 		MuteButtonText.text = $"MUSIC\n{(FindObjectOfType<MusicPlayer>().Mute ? "OFF" : "ON")}";
 	}
 
