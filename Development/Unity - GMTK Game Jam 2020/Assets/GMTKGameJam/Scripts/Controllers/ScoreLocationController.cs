@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class ScoreLocationController : MonoBehaviour
@@ -10,10 +11,14 @@ public class ScoreLocationController : MonoBehaviour
     [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
     [SerializeField] private float _radius = 5;
     [SerializeField] [NonNull] private FriendBehaviour _friendBehaviour;
+    [SerializeField] private bool _debugComplete;
     
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
     private int _requiredScoringItems = 2;
+    private LevelController _controller;
+
+    public bool HasRequired => _currentScoringItems >= _requiredScoringItems || _debugComplete;
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +30,12 @@ public class ScoreLocationController : MonoBehaviour
         _attractor.x = (int) position.x;
         _attractor.y = (int) position.y;
         _countComponents.SetRadius(_radius);
+        
+        _controller = FindObjectOfType<LevelController>();
+        if (_controller != null)
+        {
+            _controller.TrackScoreLocation(this);
+        }
     }
 
     private void UpdateScore()
@@ -44,6 +55,14 @@ public class ScoreLocationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_controller == null)
+        {
+            _controller = FindObjectOfType<LevelController>();
+            if (_controller != null)
+            {
+                _controller.TrackScoreLocation(this);
+            }
+        }
         UpdateScore();
     }
 }

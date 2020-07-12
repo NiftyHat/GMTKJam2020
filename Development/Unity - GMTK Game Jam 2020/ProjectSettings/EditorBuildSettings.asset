@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Main.unity
+    guid: 198bad6136ab9704ca0aaea3b99d6968
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Tutorial.unity
+    guid: 05bc45af6776d974596f16d3c31be7fd
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/GameTiled.unity
+    guid: e02b8972cbe42544991f0696c89c689b
   m_configObjects: {}

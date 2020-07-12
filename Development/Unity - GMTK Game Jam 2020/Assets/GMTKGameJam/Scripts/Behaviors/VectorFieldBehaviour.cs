@@ -34,7 +34,11 @@ public class VectorFieldBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
-        _vectorField.RemoveAttractor(_attractor);
+        if (_vectorField != null)
+        {
+            _vectorField.RemoveAttractor(_attractor);
+        }
+       
     }
 
     private void OnDrawGizmos()
