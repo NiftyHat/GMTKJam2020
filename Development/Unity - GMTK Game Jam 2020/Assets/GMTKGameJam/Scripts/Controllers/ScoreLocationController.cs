@@ -17,7 +17,7 @@ public class ScoreLocationController : MonoBehaviour
     [SerializeField] private int _requiredScoringItems = 2;
 
 	 [SerializeField] private  float timeRequired = 3.0f;
-	 private float currentTimeRemaining;
+	 [SerializeField] private float currentTimeRemaining;
 	 public bool levelComplete = false;
     
     // Start is called before the first frame update
