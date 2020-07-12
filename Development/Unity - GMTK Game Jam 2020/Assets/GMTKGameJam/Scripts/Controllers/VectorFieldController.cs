@@ -10,13 +10,32 @@ public class VectorFieldController : MonoBehaviour
     public Rect Bounds => _bounds;
 
     [SerializeField] public Attractor[] _attractors;
+
+	 [NonNull] public GameObject BorderCollider;
     
     // Start is called before the first frame update
     void Awake()
     {
 		int width = (int)Bounds.width;
 		int height = (int)Bounds.height;
-		_vectorField = new VectorField(100, 100, 1);
+		_vectorField = new VectorField((int)Bounds.width, (int)Bounds.height, 1);
+
+		// Create borders...
+		GameObject border = new GameObject();
+		border.name = "Borders";
+		border.transform.parent = transform;
+		GameObject a = Instantiate(BorderCollider, new Vector3(Bounds.width / 2, 0, 0), Quaternion.identity);
+		a.transform.localScale = new Vector3(Bounds.width, 1, 1);
+		a.transform.parent = border.transform;
+		a = Instantiate(BorderCollider, new Vector3(Bounds.width / 2, 0, Bounds.height - 1), Quaternion.identity);
+		a.transform.localScale = new Vector3(Bounds.width, 1, 1);
+		a.transform.parent = border.transform;
+		a = Instantiate(BorderCollider, new Vector3(0, 0, Bounds.height / 2), Quaternion.identity);
+		a.transform.localScale = new Vector3(1, 1, Bounds.height);
+		a.transform.parent = border.transform;
+		a = Instantiate(BorderCollider, new Vector3(Bounds.width - 1, 0, Bounds.height / 2), Quaternion.identity);
+		a.transform.localScale = new Vector3(1, 1, Bounds.height);
+		a.transform.parent = border.transform;
 
 		for(int x = 0; x < VectorField.WidthByGrid; x++) {
 			VectorField.Block(x, 0);
