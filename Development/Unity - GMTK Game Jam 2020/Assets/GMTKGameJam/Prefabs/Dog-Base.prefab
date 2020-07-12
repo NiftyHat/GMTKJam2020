@@ -242,17 +242,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.00066225167
-      value: 0.3018182
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.29976103
-      value: 0.997746
+      time: 0
+      value: 0.4047203
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -260,36 +251,45 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.784768
-      value: 0.99636674
-      inSlope: -0.00050911907
-      outSlope: -0.00050911907
+      time: 0.19882339
+      value: 0.99970466
+      inSlope: -0.63744897
+      outSlope: -0.63744897
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.044153374
+    - serializedVersion: 3
+      time: 0.70149493
+      value: 0.40422416
+      inSlope: -0.1169304
+      outSlope: -0.1169304
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.07812514
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.9993929
-      value: 0.0036334991
+      time: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _repelRangeMultiplier: 15
-  _repelRangeBase: 4
+  _repelRangeMultiplier: 8
+  _repelRangeBase: 3
   _animator: {fileID: 8871373333301308110}
   _rigidbody: {fileID: 8871373333641815250}
-  _bounceVelocity: 50
+  _bounceVelocity: 200
   _isBorking: 0
   _countComponents: {fileID: 8871373333562743159}
   _borkAccumulator:
     _max: 100
-    _cooldownTime: 4
+    _cooldownTime: 3.5
     _baseIncreaseSpeed: 5
     _value: 0
 --- !u!114 &8871373333562743153
