@@ -18,10 +18,9 @@ public class UIControlsBehaviour : MonoBehaviour
 	}
 
 	public void GotoLevel(int x) {
-		Debug.Log($"Going to level {x}");
 		// todo fancy level transition here
 
-		int nextLevel = x % SceneManager.sceneCount;
+		int nextLevel = x % SceneManager.sceneCountInBuildSettings;
 		SceneManager.LoadScene(nextLevel);
 	}
 }
