@@ -12,16 +12,26 @@ public class UIControlsBehaviour : MonoBehaviour
 	public TMP_Text MuteButtonText;
 	public Image MusicSprite;
 	public MusicPlayer MusicPlayerRef;
+	public AmbientPlayer AmbientPlayerRef;
 
 	public Sprite MusicOn;
 	public Sprite MusicOff;
 
+	protected AmbientPlayer _ambientPlayer;
+
 	void Awake() {
 		if(FindObjectsOfType<MusicPlayer>().Length == 0) {
-			Instantiate(MusicPlayerRef);
+			Instantiate(MusicPlayerRef, transform.parent);
 		}
-		
+		if(FindObjectsOfType<AmbientPlayer>().Length == 0) {
+			_ambientPlayer = Instantiate(AmbientPlayerRef, transform.parent);
+		}
 		UpdateUI();
+	}
+
+	void Start()
+	{
+		_ambientPlayer.Play();
 	}
 
 	private void UpdateUI()
@@ -40,6 +50,10 @@ public class UIControlsBehaviour : MonoBehaviour
 	}
 
 	public void NextLevel() {
+		if (_ambientPlayer != null)
+		{
+			_ambientPlayer.Stop();
+		}
 		GotoLevel(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 

@@ -1148,6 +1148,8 @@ MonoBehaviour:
   MusicSprite: {fileID: 2300971742797278584}
   MusicPlayerRef: {fileID: 6500935763460895872, guid: ce6852bb8516d1649aa9389f43282614,
     type: 3}
+  AmbientPlayerRef: {fileID: -4890309079678329489, guid: 22cae0549f4ebe04a92322142ecea3f1,
+    type: 3}
   MusicOn: {fileID: 21300000, guid: 94efd76dcf76459499956eaea42faf20, type: 3}
   MusicOff: {fileID: 21300000, guid: 7cc6cbac7bea1ce48a40a065bf556c92, type: 3}
 --- !u!1 &3367973474598673595
