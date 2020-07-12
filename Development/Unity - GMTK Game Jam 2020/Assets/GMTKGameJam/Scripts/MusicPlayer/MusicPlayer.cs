@@ -18,7 +18,7 @@ public class MusicPlayer : MonoBehaviour
 
 	bool isMuted = false;
 	float soundMultiplier = 1;
-	float volume = 1;
+	float volume = 0.25f;
 
 	void Update() {
 
