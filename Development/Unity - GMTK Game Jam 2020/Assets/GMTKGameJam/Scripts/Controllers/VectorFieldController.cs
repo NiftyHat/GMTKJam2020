@@ -49,14 +49,21 @@ public class VectorFieldController : MonoBehaviour
             Gizmos.DrawWireSphere(new Vector3(attractor.x, 0, attractor.y), attractor.force);
         }
 
-		Gizmos.color = Color.grey;
 		for(int x = 0; x < _bounds.width; x++) {
+			Gizmos.color = Color.grey;
+			Gizmos.DrawWireCube(new Vector3(x, 0.5f, 1), Vector3.one);
+			Gizmos.DrawWireCube(new Vector3(x, 0.5f,  _bounds.height - 2), Vector3.one);
+			Gizmos.color = Color.black;
 			Gizmos.DrawWireCube(new Vector3(x, 0.5f, 0), Vector3.one);
-			Gizmos.DrawWireCube(new Vector3(x, 0.5f,  _bounds.height), Vector3.one);
+			Gizmos.DrawWireCube(new Vector3(x, 0.5f,  _bounds.height - 1), Vector3.one);
 		}
 		for(int y = 0; y < _bounds.height; y++) {
+			Gizmos.color = Color.grey;
+			Gizmos.DrawWireCube(new Vector3(1, 0.5f, y), Vector3.one);
+			Gizmos.DrawWireCube(new Vector3( _bounds.width - 2, 0.5f, y), Vector3.one);
+			Gizmos.color = Color.black;
 			Gizmos.DrawWireCube(new Vector3(0, 0.5f, y), Vector3.one);
-			Gizmos.DrawWireCube(new Vector3( _bounds.width, 0.5f, y), Vector3.one);
+			Gizmos.DrawWireCube(new Vector3( _bounds.width - 1, 0.5f, y), Vector3.one);
 		}
     }
 }
