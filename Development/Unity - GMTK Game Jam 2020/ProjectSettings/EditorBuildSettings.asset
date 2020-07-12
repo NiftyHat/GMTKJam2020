@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GMTKGameJam/Scenes/Level 2.unity
     guid: 42a29907786c4a847808c37d7c8e42ec
+  - enabled: 1
+    path: Assets/GMTKGameJam/Scenes/Level 3.unity
+    guid: c9807fe5de8b10f40ba313f72b2f75c0
   m_configObjects: {}

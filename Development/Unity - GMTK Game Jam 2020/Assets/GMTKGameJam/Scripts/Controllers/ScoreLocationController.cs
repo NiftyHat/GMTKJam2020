@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreLocationController : MonoBehaviour
 {
@@ -67,11 +69,12 @@ public class ScoreLocationController : MonoBehaviour
 
         UpdateScore();
 
-		  if(_requiredScoringItems - _lastScoringItems == 0) { 
+		  if(_requiredScoringItems - _lastScoringItems <= 0) { 
 			  currentTimeRemaining -= Time.deltaTime;
 			  if(currentTimeRemaining <= 0) {
 				  levelComplete = true;
 				  _labelText.text = "level complete";
+				  StartCoroutine("GotoNextLevel");
 			  }
 			}
 		  else {
@@ -79,4 +82,9 @@ public class ScoreLocationController : MonoBehaviour
 			  if(currentTimeRemaining > timeRequired) currentTimeRemaining = timeRequired;
 		  }
     }
+
+	 IEnumerator GotoNextLevel() {
+		yield return new WaitForSeconds(3);
+		FindObjectOfType<UIControlsBehaviour>().NextLevel();
+	 }
 }
