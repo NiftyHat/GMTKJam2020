@@ -16,6 +16,7 @@ public class RollingCatController : MonoBehaviour
     [SerializeField] private float _randomVelocityMultiplier = 1.0f;
     [SerializeField] private float _catSearchRadius = 3.0f;
     [SerializeField] private CatFeelings _feelings;
+    [SerializeField] private RandomAudio _randomAudio;
     enum CatFeelings
     {
         Random,
@@ -33,7 +34,7 @@ public class RollingCatController : MonoBehaviour
 
         if (_feelings == CatFeelings.Random)
         {
-            float random = Random.Range(1, 3);
+            float random = Random.Range(0f, 1f);
             if (random > 0.333)
             {
                 _feelings = CatFeelings.Likes;
@@ -47,7 +48,6 @@ public class RollingCatController : MonoBehaviour
                 _feelings = CatFeelings.Neutral;
             }
         }
-
         StartCoroutine(RandomMill());
     }
     
@@ -61,6 +61,19 @@ public class RollingCatController : MonoBehaviour
             if (_vectorFieldMovement.VectorFieldVelocity.magnitude == 0)
             {
                 DoRandomMove();
+                DoRandomMeow();
+            }
+        }
+    }
+
+    private void DoRandomMeow()
+    {
+        if (_randomAudio != null)
+        {
+            float random = Random.Range(0f, 1f);
+            if (random < 0.2f)
+            {
+                _randomAudio.Play();
             }
         }
     }
