@@ -14,9 +14,10 @@ public class ScoreLocationController : MonoBehaviour
     
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
-    private int _requiredScoringItems = 2;
+    [SerializeField] private int _requiredScoringItems = 2;
 
-	 public float timeRequired = 3.0f;
+	 [SerializeField] private  float timeRequired = 3.0f;
+	 private float currentTimeRemaining;
 	 public bool levelComplete = false;
     
     // Start is called before the first frame update
@@ -29,6 +30,8 @@ public class ScoreLocationController : MonoBehaviour
         _attractor.x = (int) position.x;
         _attractor.y = (int) position.y;
         _countComponents.SetRadius(_radius);
+
+		  currentTimeRemaining = timeRequired;
     }
 
     private void UpdateScore()
@@ -65,15 +68,15 @@ public class ScoreLocationController : MonoBehaviour
         UpdateScore();
 
 		  if(_requiredScoringItems - _lastScoringItems == 0) { 
-			  timeRequired -= Time.deltaTime;
-			  if(timeRequired <= 0) {
+			  currentTimeRemaining -= Time.deltaTime;
+			  if(currentTimeRemaining <= 0) {
 				  levelComplete = true;
 				  _labelText.text = "level complete";
 			  }
 			}
 		  else {
-			  timeRequired += Time.deltaTime;
-			  if(timeRequired > 3.0f) timeRequired = 3.0f;
+			  currentTimeRemaining += Time.deltaTime;
+			  if(currentTimeRemaining > timeRequired) currentTimeRemaining = timeRequired;
 		  }
     }
 }
