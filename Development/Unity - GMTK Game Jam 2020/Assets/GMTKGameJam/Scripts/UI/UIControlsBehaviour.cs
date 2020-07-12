@@ -1,10 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIControlsBehaviour : MonoBehaviour
 {
+
+	public TMP_Text MuteButtonText;
+	public MusicPlayer MusicPlayerRef;
+
+	void Awake() {
+		if(FindObjectsOfType<MusicPlayer>().Length == 0) {
+			Instantiate(MusicPlayerRef);
+		}
+		UpdateUI();
+	}
+
+	private void UpdateUI()
+	{
+		MuteButtonText.text = $"MUSIC\n{(FindObjectOfType<MusicPlayer>().Mute ? "OFF" : "ON")}";
+	}
+
 	public void Restart() {
 		GotoLevel(SceneManager.GetActiveScene().buildIndex);
 	}
@@ -22,5 +40,11 @@ public class UIControlsBehaviour : MonoBehaviour
 
 		int nextLevel = x % SceneManager.sceneCountInBuildSettings;
 		SceneManager.LoadScene(nextLevel);
+	}
+
+	public void ChangeMusic() {
+		MusicPlayer m = FindObjectOfType<MusicPlayer>();
+		m.Mute = !m.Mute; 
+		UpdateUI();
 	}
 }
