@@ -15,6 +15,7 @@ public class BorkingBehavior : MonoBehaviour
     [SerializeField] private float _bounceVelocity;
     [SerializeField] private bool _isBorking;
     [SerializeField] [NonNull] private CountComponentsInRange _countComponents;
+    [SerializeField] [NonNull] private RandomAudio _randomAudio;
 
     [SerializeField] private BorkAccumulator _borkAccumulator;
         
@@ -100,6 +101,7 @@ public class BorkingBehavior : MonoBehaviour
             {
                 _rigidbody.AddForce(Vector3.up * (_bounceVelocity * Random.Range(0.3f,0.7f)), ForceMode.Impulse );
             }
+            _randomAudio.Play();
             yield return new WaitForSeconds(nextWait);
         }
         yield return null;
