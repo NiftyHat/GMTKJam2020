@@ -6,6 +6,7 @@ public class ScoreLocationController : MonoBehaviour
     
     [SerializeField] protected Attractor _attractor;
     [SerializeField] protected TextMeshPro _scoreText;
+    [SerializeField] protected TextMeshPro _labelText;
 
     [SerializeField] [NonNull] protected CountComponentsInRange _countComponents;
     [SerializeField] private float _radius = 5;
@@ -14,6 +15,9 @@ public class ScoreLocationController : MonoBehaviour
     private int _currentScoringItems = 0;
     private int _lastScoringItems = -1;
     private int _requiredScoringItems = 2;
+
+	 public float timeRequired = 3.0f;
+	 public bool levelComplete = false;
     
     // Start is called before the first frame update
     void Start()
@@ -29,21 +33,47 @@ public class ScoreLocationController : MonoBehaviour
 
     private void UpdateScore()
     {
-        _currentScoringItems = _countComponents.Count<ScoringBehavior>();
-        if (_lastScoringItems != _currentScoringItems)
-        {
-            float normalizedScore = 1.0f / _requiredScoringItems * _currentScoringItems;
-            _friendBehaviour.AmountOfCat = normalizedScore;
-            _lastScoringItems = _currentScoringItems;
-            if (_scoreText != null)
-            {
-                _scoreText.text = Mathf.Max(_requiredScoringItems - _currentScoringItems, 0).ToString();
-            }
-        }
+		_currentScoringItems = _countComponents.Count<ScoringBehavior>();
+
+
+
+		if (_lastScoringItems != _currentScoringItems)
+		{
+		float normalizedScore = (float)_currentScoringItems / (float)_requiredScoringItems;
+		_friendBehaviour.AmountOfCat = normalizedScore;
+
+		if(_currentScoringItems < _requiredScoringItems) {
+			_labelText.text = "kitties needed";
+			_scoreText.gameObject.SetActive(true);
+		} else if (timeRequired > 0) {
+			_labelText.text = "hold...";
+			_scoreText.gameObject.SetActive(false);
+		}
+
+			_lastScoringItems = _currentScoringItems;
+			if (_scoreText != null)
+			{
+				_scoreText.text = Mathf.Max(_requiredScoringItems - _currentScoringItems, 0).ToString();
+			}
+		}
     }
     // Update is called once per frame
     void Update()
     {
+		 if(levelComplete) return;
+
         UpdateScore();
+
+		  if(_requiredScoringItems - _lastScoringItems == 0) { 
+			  timeRequired -= Time.deltaTime;
+			  if(timeRequired <= 0) {
+				  levelComplete = true;
+				  _labelText.text = "level complete";
+			  }
+			}
+		  else {
+			  timeRequired += Time.deltaTime;
+			  if(timeRequired > 3.0f) timeRequired = 3.0f;
+		  }
     }
 }

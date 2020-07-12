@@ -37,6 +37,8 @@ public class VectorField
 	}
 
 	public void Block(int x, int y) {
+		x = Mathf.Clamp(x, 0, Width - 1);
+		y = Mathf.Clamp(y, 0, Height - 1);
 		map[x, y] = true;
 		UpdateAttractorMap();
 	}
@@ -275,10 +277,10 @@ public class VectorField
 	public IEnumerable<Point> GetPointsOnLine(float fx0, float fy0, float fx1, float fy1)
 	{
 
-		int x0 = (int)(fx0 / GridSize);
-		int y0 = (int)(fy0 / GridSize);
-		int x1 = (int)(fx1 / GridSize);
-		int y1 = (int)(fy1 / GridSize);
+		int x0 = Mathf.RoundToInt(fx0 / GridSize);
+		int y0 = Mathf.RoundToInt(fy0 / GridSize);
+		int x1 = Mathf.RoundToInt(fx1 / GridSize);
+		int y1 = Mathf.RoundToInt(fy1 / GridSize);
 
 
 		bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
